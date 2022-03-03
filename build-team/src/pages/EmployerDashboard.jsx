@@ -9,30 +9,52 @@ const EmployerDashboard = () => {
                             <div className="col d-flex flex-column justify-content-center align-items-center">
                                 <h3 class="card-title">FANG Tech</h3>
                                 <h5 className="d-flex">
-                                    Occupation:{" "}
-                                    <p className="ms-2">Web Designer</p>
+                                    Type:{" "}
+                                    <p className="ms-2">
+                                        Mobile Development Studio
+                                    </p>
                                 </h5>
-                                <h6 className="d-flex">
-                                    Level: <p className="ms-2">Intern</p>
-                                </h6>
-                                <p className="card-text">
-                                    Hardworking determined young lady that works
-                                    well with others.
+                                <p className="card-text text-center">
+                                    FANG is a moblie development studio that has
+                                    produced multiple to industry standard apps
+                                    including three top ten trending apps. We
+                                    are currently looking for a team that
+                                    develop our first Fullstack Progressive Web
+                                    app. We currently with a well put together
+                                    team we can deliver and app that would
+                                    revolutionize how we interact in Trinidad
+                                    and Tobago.
                                 </p>
+                                <h6 className="d-flex">
+                                    Propose Team Budget:{" "}
+                                    <p className="ms-2">$1.25M</p>
+                                </h6>
+                                <h6 className="d-flex">
+                                    Propose Duration:{" "}
+                                    <p className="ms-2">12 Months</p>
+                                </h6>
                                 <div className="d-flex">
-                                    <h5>Skills:</h5>
+                                    <h5>Positions Required:</h5>
                                     <div className="mx-2">
                                         <span className="badge bg-info mx-1">
-                                            HTML
+                                            Frontend Developer
                                         </span>
                                         <span className="badge bg-info mx-1">
-                                            CSS
+                                            Backend Developer
                                         </span>
                                         <span className="badge bg-info mx-1">
-                                            Javascript
+                                            Database Administrator
                                         </span>
-                                        <span className="badge bg-info mx-1">
-                                            React
+                                    </div>
+                                </div>
+                                <div className="d-flex">
+                                    <h5>Desired Positions:</h5>
+                                    <div className="mx-2">
+                                        <span className="badge bg-success mx-1">
+                                            Fullstack Developer
+                                        </span>
+                                        <span className="badge bg-success mx-1">
+                                            Software Designer
                                         </span>
                                     </div>
                                 </div>
@@ -54,25 +76,25 @@ const EmployerDashboard = () => {
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
-                                {/* Offer 1 */}
+                                {/* Team Member 1 */}
                                 <a className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
-                                        <h5>Company Name</h5>
+                                        <h5>Anthon Mapp</h5>
                                         <small>Expert</small>
                                     </div>
                                     <small>Frontend Web Dev</small>
                                 </a>
 
-                                {/* Offer 2 */}
+                                {/* Team Member 2 */}
                                 <a className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
-                                        <h5>Company Name</h5>
+                                        <h5>Alica Martin</h5>
                                         <small>Expert</small>
                                     </div>
                                     <small>Backend Web Dev</small>
                                 </a>
 
-                                {/* Offer 3 */}
+                                {/* Team Member 3 */}
                                 <a className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5>Jewel Santana</h5>
@@ -85,7 +107,7 @@ const EmployerDashboard = () => {
                     </div>
                 </div>
 
-                {/* Job History Card */}
+                {/* Suggested Team Card */}
                 <div className="col pe-0">
                     <div className="card h-100 rounded-0">
                         {/* Card Header */}
@@ -111,7 +133,10 @@ const EmployerDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseOne"
                                         >
-                                            Job 1
+                                            <div className="d-flex flex-column">
+                                                <h6>Mark Shang</h6>
+                                                <small>Software Designer</small>
+                                            </div>
                                         </button>
                                     </h2>
                                     <div
@@ -121,7 +146,22 @@ const EmployerDashboard = () => {
                                         data-bs-parent="#pastJobs"
                                     >
                                         <div className="accordion-body">
-                                            Short Job Description
+                                            <p>Level: Advance</p>
+                                            <p>Desired Salary: $20000/mo.</p>
+                                            <div className="d-flex justify-content-end">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-outline-success me-2"
+                                                >
+                                                    Invite
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-outline-danger"
+                                                >
+                                                    Decline
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +179,12 @@ const EmployerDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseTwo"
                                         >
-                                            Job 2
+                                            <div className="d-flex flex-column">
+                                                <h6>Elton John</h6>
+                                                <small>
+                                                    Database Administrator
+                                                </small>
+                                            </div>
                                         </button>
                                     </h2>
                                     <div
@@ -149,42 +194,36 @@ const EmployerDashboard = () => {
                                         data-bs-parent="#pastJobs"
                                     >
                                         <div className="accordion-body">
-                                            Short Job Description 2
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Item 3 */}
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingThree"
-                                    >
-                                        <button
-                                            className="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="collapseThree"
-                                        >
-                                            Job 3
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseThree"
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby="headingThree"
-                                        data-bs-parent="#pastJobs"
-                                    >
-                                        <div className="accordion-body">
-                                            Short Job Description 3
+                                            <p>Level: Expert</p>
+                                            <p>Desired Salary: $12500/mo.</p>
+                                            <div className="d-flex justify-content-end">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-outline-success me-2"
+                                                >
+                                                    Invite
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-outline-danger"
+                                                >
+                                                    Decline
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Card Footer */}
-                        <div className="card-footer">View Full History</div>
+                        <div className="card-footer d-flex justify-content-evenly">
+                            <button type="button" class="btn btn-outline-secondary">
+                                Refactor
+                            </button>
+                            <button type="button" class="btn btn-outlined-secondary">
+                                Search
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
