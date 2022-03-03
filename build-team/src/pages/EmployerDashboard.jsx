@@ -220,7 +220,7 @@ const EmployerDashboard = () => {
                             <button type="button" class="btn btn-outline-secondary">
                                 Refactor
                             </button>
-                            <button type="button" class="btn btn-outlined-secondary">
+                            <button type="button" class="btn btn-outline-secondary">
                                 Search
                             </button>
                         </div>
