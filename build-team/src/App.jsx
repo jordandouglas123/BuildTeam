@@ -18,6 +18,8 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import About from "./pages/About"
 
+import "./css/app.css"
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
     //Route controls the path to each page. 
     //Element is the different components and pages that the routes link to. 
       <BrowserRouter>
+        <div id="container">
           <div className="App">
               <Header />
           </div>
@@ -36,6 +39,7 @@ function App() {
             <Route path="/signup" element = { <SignUp /> } />
             <Route path="/about" element = { <About /> } />
           </Routes>
+        </div>
       </BrowserRouter>
   );
 }
