@@ -1,0 +1,39 @@
+#home_nav{
+   height: fit-content;
+   margin-bottom: 0rem;
+
+}
+#jumbotron{
+    background-color: #076dae;
+    padding: 1rem;
+}
+#jumboTitle{
+    color: aliceblue;
+    font-size: 5rem;
+    padding:3rem ;
+}
+
+#logo{
+    width: 200px;
+    height: max-content;
+}
+#card{
+    height: 20rem;
+    width: fit-content;
+    align-items: center;
+    
+}
+#cardsContainer{
+    width: 100%;
+    padding: 3rem;
+}
+.card-title{
+    font-size: xx-large;
+}
+p{
+    text-align: justify;
+    font-size: 20px;
+}
+.container{
+    margin: 7rem;
+}

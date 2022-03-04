@@ -18,6 +18,10 @@ import EmployerDash from "./pages/EmployerDashboard"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import About from "./pages/About"
+import Form from "./pages/Form"
+
+// style
+import "./css/home.css"
 
 
 function App() {
@@ -30,6 +34,10 @@ function App() {
               <Header />
           </div>
           <Routes>
+
+         
+            <Route path="/form" element = { <Form /> } />
+
               <Route path="/" element={<Home />} />
               <Route path="/employee" element={<EmployeeDash />} />
               <Route path="/employer" element={<EmployerDash />} />
@@ -37,6 +45,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/about" element={<About />} />
               <Route path="/eview" element={<EmployerComp />} />
+
           </Routes>
       </BrowserRouter>
   );
