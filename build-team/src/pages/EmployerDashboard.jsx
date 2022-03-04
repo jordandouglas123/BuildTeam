@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const EmployerDashboard = () => {
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -95,13 +96,16 @@ const EmployerDashboard = () => {
                                 </a>
 
                                 {/* Team Member 3 */}
-                                <a className="list-group-item list-group-item-action">
+                                <Link
+                                    to="/employee"
+                                    className="list-group-item list-group-item-action"
+                                >
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5>Jewel Santana</h5>
                                         <small>Intern</small>
                                     </div>
                                     <small>Fullstack Developer</small>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -217,10 +221,16 @@ const EmployerDashboard = () => {
                         </div>
                         {/* Card Footer */}
                         <div className="card-footer d-flex justify-content-evenly">
-                            <button type="button" class="btn btn-outline-secondary">
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                            >
                                 Refactor
                             </button>
-                            <button type="button" class="btn btn-outline-secondary">
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                            >
                                 Search
                             </button>
                         </div>
@@ -228,7 +238,7 @@ const EmployerDashboard = () => {
                 </div>
             </div>
         </div>
-    ); 
-}
- 
+    );
+};
+
 export default EmployerDashboard;

@@ -1,4 +1,5 @@
 import "../css/dashbord.css"
+import { Link } from "react-router-dom";
 const EmployeeDashboard = () => {
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -103,35 +104,34 @@ const EmployeeDashboard = () => {
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
                                 {/* Offer 1 */}
-                                <a className="list-group-item list-group-item-action">
+                                <Link to="/eview" className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
-                                        <h5>Company Name</h5>
+                                        <h5>FANG</h5>
                                         <small>just now</small>
                                     </div>
-                                    <small>Simple Description</small>
-                                </a>
+                                </Link>
 
                                 {/* Offer 2 */}
                                 <a className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
-                                        <h5>Company Name</h5>
+                                        <h5>TT Ride Share</h5>
                                         <small>3 days ago</small>
                                     </div>
-                                    <small>Simple Description</small>
                                 </a>
 
                                 {/* Offer 3 */}
                                 <a className="list-group-item list-group-item-action">
                                     <div className="d-flex w-100 justify-content-between">
-                                        <h5>Company Name</h5>
+                                        <h5>Prestige Holdings</h5>
                                         <small>4 days ago</small>
                                     </div>
-                                    <small>Simple Description</small>
                                 </a>
                             </div>
                         </div>
                         {/* Card Footer */}
-                        <div className="card-footer">View Jobs</div>
+                        <div className="card-footer">
+                            View All Offers
+                        </div>
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@ const EmployeeDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseOne"
                                         >
-                                            Job 1
+                                            Apple
                                         </button>
                                     </h2>
                                     <div
@@ -189,7 +189,7 @@ const EmployeeDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseTwo"
                                         >
-                                            Job 2
+                                            Google
                                         </button>
                                     </h2>
                                     <div
@@ -217,7 +217,7 @@ const EmployeeDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseThree"
                                         >
-                                            Job 3
+                                            Netflix
                                         </button>
                                     </h2>
                                     <div
@@ -234,7 +234,9 @@ const EmployeeDashboard = () => {
                             </div>
                         </div>
                         {/* Card Footer */}
-                        <div className="card-footer">View Full History</div>
+                        <div className="card-footer">
+                            View Entire Job History
+                        </div>
                     </div>
                 </div>
             </div>
