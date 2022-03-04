@@ -7,8 +7,8 @@ const Form = () => {
       <h1 align="center">Project Requirements Form </h1>
       <div class="card w-75 m-auto p-2">
         <form>
-          <div>
-            <label>
+          <div >
+            <label className="d-block text-center" >
               Project Description (Give a brief description of the project you
               intend to execute.)
             </label>
@@ -20,7 +20,7 @@ const Form = () => {
               rows="10"
             ></textarea>
             <br />
-            <label htmlFor="">Project Budget</label>
+            <label className="d-block text-center"  htmlFor="">Project Budget</label>
             <input
               type="number"
               data-type="currency"
@@ -29,13 +29,13 @@ const Form = () => {
             />
 
             <br />
-            <label htmlFor="">
+            <label className="d-block text-center"  htmlFor="">
               Desired team size (Specify the number of members you think your
               project would require.)
             </label>
-            <input type="number" className="form-control" />
+            <input className="d-block text-center"  type="number" className="form-control" />
             <br />
-            <label htmlFor="">
+            <label className="d-block text-center"  htmlFor="">
               Choose desired members (Choose the type of members you would like
               team to consist of. ){" "}
             </label>
