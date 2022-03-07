@@ -227,12 +227,13 @@ const EmployerDashboard = () => {
                             >
                                 Refactor
                             </button>
-                            <button
+                            <Link
+                                to="/form"
                                 type="button"
                                 class="btn btn-outline-secondary"
                             >
                                 Search
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
