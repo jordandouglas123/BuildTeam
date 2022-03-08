@@ -56,10 +56,13 @@ const EmployeeDashboard = () => {
 
                                 <div className="d-flex justify-content-evenly">
                                     <div className="card">
-                                        <i class="bi bi-person-check text-center"></i>
-                                        Taken
+                                        <h5 className="card-title">Completed</h5>
+                                        <p className="card-text">3</p>
                                     </div>
-                                    <div className="card">Accepted</div>
+                                    <div className="card">
+                                        <h5 className="card-title">Aborted</h5>
+                                        <p className="card-text">0</p>
+                                    </div>
                                     <div className="card">Accepted</div>
                                 </div>
                                 <h5 className="text-center">Employer Rating</h5>
