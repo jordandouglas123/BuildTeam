@@ -48,32 +48,24 @@ const EmployeeDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col">
-                                <h5 className="text-center">Offered</h5>
-                                <h5 className="text-center">6</h5>
-                                <div className="d-flex justify-content-evenly">
-                                    <h5>
-                                        Accepted
-                                        <p className="text-center">3</p>
-                                    </h5>
-                                    <h5>
-                                        Declined
-                                        <p className="text-center">0</p>
-                                    </h5>
+                                <div className="d-flex justify-content-evenly mb-2">
+                                    <div className="card">Accepted</div>
+                                    <div className="card">Accepted</div>
+                                    <div className="card">Accepted</div>
                                 </div>
+
                                 <div className="d-flex justify-content-evenly">
-                                    <h5>
-                                        Completed
-                                        <p className="text-center">3</p>
-                                    </h5>
-                                    <h5>
-                                        Aborted
-                                        <p className="text-center">0</p>
-                                    </h5>
+                                    <div className="card">
+                                        <i class="bi bi-person-check text-center"></i>
+                                        Taken
+                                    </div>
+                                    <div className="card">Accepted</div>
+                                    <div className="card">Accepted</div>
                                 </div>
                                 <h5 className="text-center">Employer Rating</h5>
                                 <div class="progress">
                                     <div
-                                        class="progress-bar bg-success"
+                                        className="progress-bar bg-success"
                                         role="progressbar"
                                         aria-valuenow="50"
                                         aria-valuemin="0"
@@ -104,7 +96,10 @@ const EmployeeDashboard = () => {
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
                                 {/* Offer 1 */}
-                                <Link to="/eview" className="list-group-item list-group-item-action">
+                                <Link
+                                    to="/eview"
+                                    className="list-group-item list-group-item-action"
+                                >
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5>FANG</h5>
                                         <small>just now</small>
@@ -129,9 +124,7 @@ const EmployeeDashboard = () => {
                             </div>
                         </div>
                         {/* Card Footer */}
-                        <div className="card-footer">
-                            View All Offers
-                        </div>
+                        <div className="card-footer">View All Offers</div>
                     </div>
                 </div>
 
