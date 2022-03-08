@@ -14,9 +14,10 @@ const EmployeeDashboard = () => {
                                     Occupation:{" "}
                                     <p className="ms-2">Fullstack Developer</p>
                                 </h5>
-                                <h6 className="d-flex">
-                                    Level: <p className="ms-2">Intern</p>
-                                </h6>
+                                <h5 className="d-flex">
+                                    Level: 
+                                    <p className="ms-2">Intern</p>
+                                </h5>
                                 <p className="card-text">
                                     Hardworking determined young lady that works
                                     well with others.
@@ -49,23 +50,53 @@ const EmployeeDashboard = () => {
                         <div className="row h-100 mb-2">
                             <div className="col">
                                 <div className="d-flex justify-content-evenly mb-2">
-                                    <div className="card">Accepted</div>
-                                    <div className="card">Accepted</div>
-                                    <div className="card">Accepted</div>
+                                    <div className="card statistic-card shadow">
+                                        <h5 className="card-title m-auto">
+                                            Offered
+                                        </h5>
+                                        <p className="card-text text-center m-auto">
+                                            6
+                                        </p>
+                                    </div>
+                                    <div className="card statistic-card shadow">
+                                        <h5 className="card-title m-auto">
+                                            Accepted
+                                        </h5>
+                                        <p className="card-text text-center m-auto">
+                                            3
+                                        </p>
+                                    </div>
+                                    <div className="card statistic-card shadow">
+                                        <h5 className="card-title m-auto">
+                                            Declined
+                                        </h5>
+                                        <p className="card-text text-center m-auto">
+                                            0
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div className="d-flex justify-content-evenly">
-                                    <div className="card">
-                                        <h5 className="card-title">Completed</h5>
-                                        <p className="card-text">3</p>
+                                    <div className="card statistic-card text-center shadow">
+                                        <h5 className="card-title m-auto">
+                                            Completed
+                                        </h5>
+                                        <p className="card-text text-center m-auto">
+                                            3
+                                        </p>
                                     </div>
-                                    <div className="card">
-                                        <h5 className="card-title">Aborted</h5>
-                                        <p className="card-text">0</p>
+                                    <div className="card statistic-card text-center shadow">
+                                        <h5 className="card-title m-auto">
+                                            Aborted
+                                        </h5>
+                                        <p className="card-text text-center m-auto">
+                                            0
+                                        </p>
                                     </div>
-                                    <div className="card">Accepted</div>
                                 </div>
-                                <h5 className="text-center">Employer Rating</h5>
+                                <h5 className="text-center mt-4">
+                                    Employer Rating
+                                </h5>
                                 <div class="progress">
                                     <div
                                         className="progress-bar bg-success"
