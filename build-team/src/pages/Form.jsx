@@ -37,9 +37,8 @@ const Form = () => {
                             think your project would require.)
                         </label>
                         <input
-                            className="d-block text-center"
+                            className="d-block text-center form-control"
                             type="number"
-                            className="form-control"
                         />
                         <br />
                         <label className="d-block text-center" htmlFor="">

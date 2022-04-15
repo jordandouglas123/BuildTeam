@@ -1,4 +1,19 @@
+import React, {useRef} from "react";
+
+
 const SignUp = () => {
+    const emp = useRef()
+    const eme = useRef()
+
+    const change = () => {
+        if (emp.current.checked) {
+            console.log("Emplyer Login")
+        }
+        else if(eme.current.checked){
+            console.log("Emplyee Login")
+        }
+    }
+
     return (
         <div
             style={{
@@ -36,12 +51,12 @@ const SignUp = () => {
                     }}
                 >
                     <img
-                        src={require("../images/logo.PNG")} 
+                        src={require("../images/logo.PNG")}
                         style={{ paddingLeft: "130px" }}
                     />
 
                     {/* FIRST NAME AND LAST NAME*/}
-                    <div>
+                    <div className="d-flex">
                         <input
                             type="text"
                             name="last name"
@@ -144,13 +159,14 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div>
+                    <div onClick={change}>
                          {" "}
                         <input
                             type="radio"
                             id="employee"
                             name="employ"
                             value="Employee"
+                            ref={emp}
                         />
                           <label for="employee">Employee</label>
                         <br /> {" "}
@@ -159,8 +175,9 @@ const SignUp = () => {
                             id="employer"
                             name="employ"
                             value="Employer"
+                            ref={eme}
                         />
-                          <label for="employer">Employer</label> 
+                        <label for="employer"> Employer</label>
                     </div>
 
                     <button

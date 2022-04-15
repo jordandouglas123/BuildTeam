@@ -9,7 +9,7 @@ const EmployeeDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
-                                <h3 class="card-title">Jewel Santana</h3>
+                                <h3 className="card-title">Jewel Santana</h3>
                                 <h5 className="d-flex">
                                     Occupation:{" "}
                                     <p className="ms-2">Fullstack Developer</p>
@@ -97,7 +97,7 @@ const EmployeeDashboard = () => {
                                 <h5 className="text-center mt-4">
                                     Employer Rating
                                 </h5>
-                                <div class="progress">
+                                <div className="progress">
                                     <div
                                         className="progress-bar bg-success"
                                         role="progressbar"
