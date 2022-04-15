@@ -1,10 +1,34 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 const EmployerDashboard = () => {
+
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSignout = async () => {
+        try {
+            await logout();
+            navigate("/login");
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     return (
         <div className="container-fluid d-flex flex-column mt-4">
             <div className="row flex-grow-1 p-2">
                 <div className="card rounded-0 p-0">
-                    <div className="card-header">General Info</div>
+                    <div className="card-header navbar">
+                        General Info
+                        <button
+                            className="btn btn-outline-dark"
+                            onClick={handleSignout}
+                        >
+                            Logout
+                        </button>
+                    </div>
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
