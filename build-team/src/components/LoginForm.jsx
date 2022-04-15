@@ -51,7 +51,7 @@ function LoginForm() {
                                 className="form-control w-100 "
                                 id="Email"
                                 required
-                                ref={ emailRef }
+                                ref={emailRef}
                             />
                             <label htmlFor="Email">Email address</label>
                         </div>
@@ -61,7 +61,7 @@ function LoginForm() {
                                 className="form-control mb-4 w-100"
                                 id="Password"
                                 required
-                                ref={ passwordRef }
+                                ref={passwordRef}
                             />
                             <label htmlFor="Password">Password</label>
                         </div>
@@ -72,7 +72,7 @@ function LoginForm() {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
-                                ref={ employeeRef }
+                                ref={employeeRef}
                             />
                             <label
                                 className="form-check-label"
@@ -88,7 +88,7 @@ function LoginForm() {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
-                                ref={ employerRef }
+                                ref={employerRef}
                             />
                             <label
                                 className="form-check-label"
@@ -102,12 +102,23 @@ function LoginForm() {
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-5 w-75"
-                                disabled={ loading }
+                                disabled={loading}
                             >
                                 Login
                             </button>
                         </div>
                     </form>
+
+                    <div
+                        style={{
+                            paddingBottom: "15px",
+                            textAlign: "center",
+                        }}
+                    >
+                        {" "}
+                        Register New Account Here {" "}
+                        <Link to="/signup"> SignUp </Link>
+                    </div>
                 </div>
             </div>{" "}
         </div>

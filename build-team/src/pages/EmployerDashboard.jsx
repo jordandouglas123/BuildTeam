@@ -32,7 +32,7 @@ const EmployerDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
-                                <h3 class="card-title">FANG Tech</h3>
+                                <h3 className="card-title">FANG Tech</h3>
                                 <h5 className="d-flex">
                                     Type:{" "}
                                     <p className="ms-2">
@@ -179,13 +179,13 @@ const EmployerDashboard = () => {
                                             <div className="d-flex justify-content-end">
                                                 <button
                                                     type="button"
-                                                    class="btn btn-outline-success me-2"
+                                                    className="btn btn-outline-success me-2"
                                                 >
                                                     Invite
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    class="btn btn-outline-danger"
+                                                    className="btn btn-outline-danger"
                                                 >
                                                     Decline
                                                 </button>
@@ -227,13 +227,13 @@ const EmployerDashboard = () => {
                                             <div className="d-flex justify-content-end">
                                                 <button
                                                     type="button"
-                                                    class="btn btn-outline-success me-2"
+                                                    className="btn btn-outline-success me-2"
                                                 >
                                                     Invite
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    class="btn btn-outline-danger"
+                                                    className="btn btn-outline-danger"
                                                 >
                                                     Decline
                                                 </button>
@@ -247,14 +247,14 @@ const EmployerDashboard = () => {
                         <div className="card-footer d-flex justify-content-evenly">
                             <button
                                 type="button"
-                                class="btn btn-outline-secondary"
+                                className="btn btn-outline-secondary"
                             >
                                 Refactor
                             </button>
                             <Link
                                 to="/form"
                                 type="button"
-                                class="btn btn-outline-secondary"
+                                className="btn btn-outline-secondary"
                             >
                                 Search
                             </Link>
