@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 
 const EmployeeDashboard = () => {
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
     const navigate = useNavigate();
 
     const handleSignout = async () => {
@@ -21,8 +21,14 @@ const EmployeeDashboard = () => {
             <div className="row flex-grow-1 p-2">
                 <div className="card rounded-0 p-0">
                     <div className="card-header navbar">
-                        General Info
-                        <button className="btn btn-outline-dark" onClick={handleSignout}>Logout</button>
+                        General info
+                        <span>Currently Logged in: {currentUser?.email || "Please Log in"}</span>
+                        <button
+                            className="btn btn-outline-dark"
+                            onClick={handleSignout}
+                        >
+                            Logout
+                        </button>
                     </div>
                     <div className="card-body">
                         <div className="row h-100 mb-2">
@@ -33,7 +39,7 @@ const EmployeeDashboard = () => {
                                     <p className="ms-2">Fullstack Developer</p>
                                 </h5>
                                 <h5 className="d-flex">
-                                    Level: 
+                                    Level:
                                     <p className="ms-2">Intern</p>
                                 </h5>
                                 <p className="card-text">

@@ -9,7 +9,7 @@ export default function SignUpForm() {
     const employerEmailRef = useRef();
     const employerPasswordRef = useRef();
 
-    const { signup } = useAuth();
+    const { signup, currentUser } = useAuth();
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
@@ -139,7 +139,7 @@ export default function SignUpForm() {
                         <button
                             type="submit"
                             className="btn btn-primary mb-4 w-75"
-                            disabled={loading}
+                            disabled={loading || currentUser}
                         >
                             Sign Up
                         </button>

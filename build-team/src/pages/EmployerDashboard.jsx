@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 const EmployerDashboard = () => {
 
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
     const navigate = useNavigate();
 
     const handleSignout = async () => {
@@ -22,6 +22,10 @@ const EmployerDashboard = () => {
                 <div className="card rounded-0 p-0">
                     <div className="card-header navbar">
                         General Info
+                        <span>
+                            Currently Logged in:{" "}
+                            {currentUser?.email || "Please Log in"}
+                        </span>
                         <button
                             className="btn btn-outline-dark"
                             onClick={handleSignout}

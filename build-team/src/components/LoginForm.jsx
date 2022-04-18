@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 
 function LoginForm() {
-    const { login } = useAuth();
+    const { login, currentUser } = useAuth();
 
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -102,7 +102,7 @@ function LoginForm() {
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-5 w-75"
-                                disabled={loading}
+                                disabled={loading || currentUser}
                             >
                                 Login
                             </button>
