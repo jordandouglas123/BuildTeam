@@ -1,12 +1,17 @@
 import "../css/dashbord.css"
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios"
 
 
 const EmployeeDashboard = () => {
-    const { logout, currentUser } = useAuth();
+    const { logout, currentUser, authToken } = useAuth();
+    const token = authToken;
+
     const navigate = useNavigate();
+
+    const [employee, setEmployee] = useState({});
 
     const handleSignout = async () => {
         try {
@@ -16,13 +21,36 @@ const EmployeeDashboard = () => {
             console.log(error.message)
         }
     }
+
+    const fetchData = async (token) => {
+        const res = await axios.get("http://localhost:5000/api/employee" + currentUser.uid, {
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        });
+        setEmployee(res.data)
+    }
+
+    useEffect(() => {
+        if(token){
+            fetchData(token);
+        }
+    }, [token])
+
+    //console.log(employee)
+    //console.log(authToken)
+
+
     return (
         <div className="container-fluid d-flex flex-column mt-4">
             <div className="row flex-grow-1 p-2">
                 <div className="card rounded-0 p-0">
                     <div className="card-header navbar">
                         General info
-                        <span>Currently Logged in: {currentUser?.email || "Please Log in"}</span>
+                        <span>
+                            Currently Logged in:{" "}
+                            {employee[0]?.firstName || "Please Log in"}
+                        </span>
                         <button
                             className="btn btn-outline-dark"
                             onClick={handleSignout}
@@ -33,18 +61,19 @@ const EmployeeDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
-                                <h3 className="card-title">Jewel Santana</h3>
+                                <h3 className="card-title">{employee[0]?.firstName} {employee[0]?.lastName}</h3>
                                 <h5 className="d-flex">
                                     Occupation:{" "}
-                                    <p className="ms-2">Fullstack Developer</p>
+                                    <p className="ms-2">
+                                        {employee[0]?.occupation}
+                                    </p>
                                 </h5>
                                 <h5 className="d-flex">
                                     Level:
-                                    <p className="ms-2">Intern</p>
+                                    <p className="ms-2">{employee[0]?.level}</p>
                                 </h5>
                                 <p className="card-text">
-                                    Hardworking determined young lady that works
-                                    well with others.
+                                    {employee[0]?.description}
                                 </p>
                                 <div className="d-flex">
                                     <h5>Skills:</h5>

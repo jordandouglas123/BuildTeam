@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const EmployerDashboard = () => {
-
-    const { logout, currentUser } = useAuth();
+    const { logout, currentUser, authToken } = useAuth();
+    const token = authToken;
     const navigate = useNavigate();
+
+    const [employeer, setEmployer] = useState({});
+    const [suggestedTeam, setSuggestedTeam] = useState([]);
+    const [currentTeam, setCurrentTeam] = useState([]);
 
     const handleSignout = async () => {
         try {
@@ -16,6 +21,42 @@ const EmployerDashboard = () => {
         }
     };
 
+    const fetchData = async (token) => {
+        const res = await axios.get(
+            "http://localhost:5000/api/employer" + currentUser.uid,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        setEmployer(res.data);
+    };
+
+    const fetchSuggestedTeamData = async (token) => {
+
+        const teamRes = await axios.get(
+            "http://localhost:5000/api/suggestedTeam",
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        setSuggestedTeam(teamRes.data);
+    }
+
+
+    useEffect(() => {
+        if (token) {
+            fetchData(token);
+            fetchSuggestedTeamData(token);
+        }
+    }, [token]);
+
+    //console.log(employeer) 
+    //console.log(suggestedTeam);
+
     return (
         <div className="container-fluid d-flex flex-column mt-4">
             <div className="row flex-grow-1 p-2">
@@ -24,7 +65,7 @@ const EmployerDashboard = () => {
                         General Info
                         <span>
                             Currently Logged in:{" "}
-                            {currentUser?.email || "Please Log in"}
+                            {employeer[0]?.name || "Please Log in"}
                         </span>
                         <button
                             className="btn btn-outline-dark"
@@ -36,23 +77,15 @@ const EmployerDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
-                                <h3 className="card-title">FANG Tech</h3>
+                                <h3 className="card-title">
+                                    {employeer[0]?.name}
+                                </h3>
                                 <h5 className="d-flex">
                                     Type:{" "}
-                                    <p className="ms-2">
-                                        Mobile Development Studio
-                                    </p>
+                                    <p className="ms-2">{employeer[0]?.type}</p>
                                 </h5>
                                 <p className="card-text text-center">
-                                    FANG is a moblie development studio that has
-                                    produced multiple to industry standard apps
-                                    including three top ten trending apps. We
-                                    are currently looking for a team that
-                                    develop our first Fullstack Progressive Web
-                                    app. We currently with a well put together
-                                    team we can deliver and app that would
-                                    revolutionize how we interact in Trinidad
-                                    and Tobago.
+                                    {employeer[0]?.description}
                                 </p>
                                 <h6 className="d-flex">
                                     Propose Team Budget:{" "}
@@ -152,99 +185,53 @@ const EmployerDashboard = () => {
                                 id="pastJobs"
                             >
                                 {/* Item 1 */}
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingOne"
-                                    >
-                                        <button
-                                            className="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne"
-                                            aria-expanded="false"
-                                            aria-controls="collapseOne"
+                                {suggestedTeam?.map((member, index) => (
+                                    <div className="accordion-item" key={index}>
+                                        <h2 
+                                            className="accordion-header"
+                                            id={`heading${index}`}
                                         >
-                                            <div className="d-flex flex-column">
-                                                <h6>Mark Shang</h6>
-                                                <small>Software Designer</small>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseOne"
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby="headingOne"
-                                        data-bs-parent="#pastJobs"
-                                    >
-                                        <div className="accordion-body">
-                                            <p>Level: Advance</p>
-                                            <p>Desired Salary: $20000/mo.</p>
-                                            <div className="d-flex justify-content-end">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-success me-2"
-                                                >
-                                                    Invite
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-danger"
-                                                >
-                                                    Decline
-                                                </button>
+                                            <button
+                                                className="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target={`#collapse${index}`}
+                                                aria-expanded="false"
+                                                aria-controls={`collapse${index}`}
+                                            >
+                                                <div className="d-flex flex-column">
+                                                    <h6>{member.firstName} {member.lastName}</h6>
+                                                    <small>{member.occupation}</small>
+                                                </div>
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id={`collapse${index}`} 
+                                            className="accordion-collapse collapse"
+                                            aria-labelledby={`heading${index}`}
+                                            data-bs-parent="#pastJobs"
+                                        >
+                                            <div className="accordion-body">
+                                                <p>Level: {member.level}</p>
+                                                <p>Desired Salary: ${member.desiredSalary}/mo.</p>
+                                                <div className="d-flex justify-content-end">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-success me-2"
+                                                    >
+                                                        Invite
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-danger"
+                                                    >
+                                                        Decline
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {/* Item 2 */}
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingTwo"
-                                    >
-                                        <button
-                                            className="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo"
-                                        >
-                                            <div className="d-flex flex-column">
-                                                <h6>Elton John</h6>
-                                                <small>
-                                                    Database Administrator
-                                                </small>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseTwo"
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby="headingTwo"
-                                        data-bs-parent="#pastJobs"
-                                    >
-                                        <div className="accordion-body">
-                                            <p>Level: Expert</p>
-                                            <p>Desired Salary: $12500/mo.</p>
-                                            <div className="d-flex justify-content-end">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-success me-2"
-                                                >
-                                                    Invite
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-danger"
-                                                >
-                                                    Decline
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                         {/* Card Footer */}

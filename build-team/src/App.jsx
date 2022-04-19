@@ -37,12 +37,12 @@ function App() {
                     <Header />
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
                         <Route path="/employee" element={<EmployeeDash />} />
                         <Route path="/employer" element={<EmployerDash />} />
                         <Route path="/signup" element={<SignUpForm />} />
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/form" element={<Form />} />
-                        <Route path="/about" element={<About />} />
                         <Route path="/eview" element={<EmployerComp />} />
                         <Route path="/employeeform" element={<EmployeeForm />} />
                         <Route path="/employerform" element={<EmployerForm />} />
