@@ -46,16 +46,31 @@ const EmployerDashboard = () => {
         setSuggestedTeam(teamRes.data);
     }
 
+    const fetchCurrentTeamData = async (token) => {
+
+        const teamRes = await axios.get(
+            "http://localhost:5000/api/team" + currentUser.uid,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        setCurrentTeam(teamRes.data);
+    }
+
 
     useEffect(() => {
         if (token) {
             fetchData(token);
             fetchSuggestedTeamData(token);
+            fetchCurrentTeamData(token);
         }
     }, [token]);
 
     //console.log(employeer) 
     //console.log(suggestedTeam);
+    //console.log(currentTeam)
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -138,35 +153,16 @@ const EmployerDashboard = () => {
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
-                                {/* Team Member 1 */}
-                                <a className="list-group-item list-group-item-action">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>Anthon Mapp</h5>
-                                        <small>Expert</small>
-                                    </div>
-                                    <small>Frontend Web Dev</small>
-                                </a>
-
-                                {/* Team Member 2 */}
-                                <a className="list-group-item list-group-item-action">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>Alica Martin</h5>
-                                        <small>Expert</small>
-                                    </div>
-                                    <small>Backend Web Dev</small>
-                                </a>
-
-                                {/* Team Member 3 */}
-                                <Link
-                                    to="/employee"
-                                    className="list-group-item list-group-item-action"
-                                >
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>Jewel Santana</h5>
-                                        <small>Intern</small>
-                                    </div>
-                                    <small>Fullstack Developer</small>
-                                </Link>
+                                {/* Team Member  */}
+                                {currentTeam.members?.map((team, index) => ( 
+                                    <a className="list-group-item list-group-item-action" key={index}>
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5>{team.firstName} {team.lastName}</h5>
+                                            <small>{team.level}</small>
+                                        </div>
+                                        <small>{team.occupation}</small>
+                                    </a>
+                                ))}
                             </div>
                         </div>
                     </div>

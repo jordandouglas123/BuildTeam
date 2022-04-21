@@ -52,13 +52,13 @@ let employees = [
         employeeTeamId: null,
     },
     {
-        userId: "5",
+        userId: "mQm2AslWN7UGdwraL2NDGssL4CS2",
         firstName: "Jordon",
         lastName: "Douglas",
         occupation: "Backend Developer",
         level: "Intermidate",
         description: "King",
-        desiredSalary: "10000",
+        desiredSalary: "15000",
         employerAccept: false,
         employerDeclined: false,
         employeeTeamId: null,
@@ -160,7 +160,7 @@ let suggestedTeam = [
 let currentTeams = [
     {
         teamId: "NRGa61GY2hgsBPJmU8dD3InosbX2",
-        memebers: [
+        members: [
             {
                 userId: "3eKwNl38WrS012PBUHpgwFd4gB92",
                 firstName: "Akiel",
@@ -209,21 +209,10 @@ let currentTeams = [
                 employerDeclined: false,
                 employeeTeamId: null,
             },
-            {
-                userId: "2",
-                firstName: "Jael2",
-                lastName: "Romain",
-                occupation: "Software Designer",
-                level: "Advance",
-                description: "Tall",
-                desiredSalary: "10000",
-                employerAccept: false,
-                employerDeclined: false,
-                employeeTeamId: null,
-            },
         ],
     },
 ];
+
 
 const app = express();
 const port = 5000;
@@ -297,7 +286,7 @@ app.get("/api/currentTeams", (req, res) => {
 app.get("/api/team:id", (req, res) => {
     const { id } = req.params;
     let team = currentTeams.filter((team) => team.teamId === id);
-    res.send(team);
+    res.send(team[0]);
 })
 
 app.listen(port, () => {
