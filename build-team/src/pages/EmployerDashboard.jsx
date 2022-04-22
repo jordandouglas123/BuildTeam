@@ -36,7 +36,7 @@ const EmployerDashboard = () => {
     const fetchSuggestedTeamData = async (token) => {
 
         const teamRes = await axios.get(
-            "http://localhost:5000/api/suggestedTeam",
+            "http://localhost:5000/api/suggestedTeams",
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -57,6 +57,10 @@ const EmployerDashboard = () => {
             }
         );
         setCurrentTeam(teamRes.data);
+    }
+
+    const accepeted = async () => {
+        console.log("acceppted")
     }
 
 
@@ -214,6 +218,7 @@ const EmployerDashboard = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-success me-2"
+                                                        onClick={accepeted}
                                                     >
                                                         Invite
                                                     </button>

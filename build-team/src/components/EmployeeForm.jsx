@@ -30,11 +30,11 @@ function EmployeeForm() {
         }
         
         if(levelRef.current.value === '2'){
-            levelValue = "Advance"
+            levelValue = "Advanced"
         }
         
         if(levelRef.current.value === '3'){
-            levelValue = "Intermidate"
+            levelValue = "Intermediate"
         }
         
         if(levelRef.current.value === '4'){
@@ -87,7 +87,7 @@ function EmployeeForm() {
                                <select type="text" className="form-select" ref={levelRef}>
                                    <option value="1">Expert</option>
                                    <option value="2">Advanced</option>
-                                   <option value="3">Intermidate</option>
+                                   <option value="3">Intermediate</option>
                                    <option value="4">Intern</option>
                                </select>
                            </div> 

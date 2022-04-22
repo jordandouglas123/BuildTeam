@@ -58,7 +58,7 @@ const Form = () => {
         }
 
         if (memberOneRef.current.value === "5") {
-            memberOne = "Frontend Developer";
+            memberOne = "Fullstack Developer";
         }
 
         if (memberTwoRef.current.value === "1") {
@@ -74,7 +74,7 @@ const Form = () => {
             memberTwo = "Backend Developer";
         }
         if (memberTwoRef.current.value === "5") {
-            memberTwo = "Frontend Developer";
+            memberTwo = "Fullstack Developer";
         }
 
         if (memberThreeRef.current.value === "1") {
@@ -90,7 +90,7 @@ const Form = () => {
             memberThree = "Backend Developer";
         }
         if (memberThreeRef.current.value === "5") {
-            memberThree = "Frontend Developer";
+            memberThree = "Fullstack Developer";
         }
 
         if (memberFourRef.current.value === "1") {
@@ -106,7 +106,7 @@ const Form = () => {
             memberFour = "Backend Developer";
         }
         if (memberFourRef.current.value === "5") {
-            memberFour = "Frontend Developer";
+            memberFour = "Fullstack Developer";
         }
 
         if (memberFiveRef.current.value === "1") {
@@ -122,7 +122,7 @@ const Form = () => {
             memberFive = "Backend Developer";
         }
         if (memberFiveRef.current.value === "5") {
-            memberFive = "Frontend Developer";
+            memberFive = "Fullstack Developer";
         }
 
         if (levelOneRef.current.value === "1") {
@@ -130,11 +130,11 @@ const Form = () => {
         }
 
         if (levelOneRef.current.value === "2") {
-            levelValueOne = "Advance";
+            levelValueOne = "Advanced";
         }
 
         if (levelOneRef.current.value === "3") {
-            levelValueOne = "Intermidate";
+            levelValueOne = "Intermediate";
         }
 
         if (levelOneRef.current.value === "4") {
@@ -146,11 +146,11 @@ const Form = () => {
         }
 
         if (levelTwoRef.current.value === "2") {
-            levelValueTwo = "Advance";
+            levelValueTwo = "Advanced";
         }
 
         if (levelTwoRef.current.value === "3") {
-            levelValueTwo = "Intermidate";
+            levelValueTwo = "Intermediate";
         }
 
         if (levelTwoRef.current.value === "4") {
@@ -162,11 +162,11 @@ const Form = () => {
         }
 
         if (levelThreeRef.current.value === "2") {
-            levelValueThree = "Advance";
+            levelValueThree = "Advanced";
         }
 
         if (levelThreeRef.current.value === "3") {
-            levelValueThree = "Intermidate";
+            levelValueThree = "Intermediate";
         }
 
         if (levelThreeRef.current.value === "4") {
@@ -178,11 +178,11 @@ const Form = () => {
         }
 
         if (levelFourRef.current.value === "2") {
-            levelValueFour = "Advance";
+            levelValueFour = "Advanced";
         }
 
         if (levelFourRef.current.value === "3") {
-            levelValueFour = "Intermidate";
+            levelValueFour = "Intermediate";
         }
 
         if (levelFourRef.current.value === "4") {
@@ -194,11 +194,11 @@ const Form = () => {
         }
 
         if (levelFiveRef.current.value === "2") {
-            levelValueFive = "Advance";
+            levelValueFive = "Advanced";
         }
 
         if (levelFiveRef.current.value === "3") {
-            levelValueFive = "Intermidate";
+            levelValueFive = "Intermediate";
         }
 
         if (levelFiveRef.current.value === "4") {
