@@ -1,6 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const middleware = require("../middleware");
+const { response } = require("express");
+
+
+
+let test = async () => {
+    const db= require("./database");
+    const conn = await db();
+    return conn;
+}
+
+const connection = test();
 
 let employees = [
     {
@@ -231,23 +242,59 @@ app.post("/api/employees", (req, res) => {
         occupation: req.body.occupation,
         level: req.body.level,
         description: req.body.description,
-        desiredSalary: req.body.desiredSalary
+        desiredSalary: req.body.desiredSalary,
+        status: req.body.status,
+        employeeTeamId: req.body.employeeTeamId
     })
-    return res.status(200).send({ok: true});
-})
+
+    const userId = req.body.userId;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const occupation = req.body.occupation;
+    const level = req.body.level;
+    const description = req.body.description;
+    const desiredSalary = req.body.desiredSalary;
+    const status = req.body.status;
+    const employeeTeamId = req.body.employeeTeamId;
+    
+        
+    connection.then(function (value) {
+        value.query("INSERT INTO buildteam_database.employees (userId,firstName,lastName,occupation,level,description,desiredSalary,status,employeeTeamId) VALUES(?,?,?,?,?,?,?,?,?) ", [userId, firstName, lastName, occupation, level, description, desiredSalary, status, employeeTeamId], (err, res) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Employee created!");
+            }
+        })
+    })
+        return res.status(200).send({ok: true});
+    
+    
+ })
+
 
 app.get("/api/employeeslist", (req, res) => {
     res.send(employees)
 })
 
 app.get("/api/employee:id", (req, res) => {
-    const { id } = req.params
-    let employee = employees.filter((emp) => emp.userId === id)
-    if (employee[0]) {
-        res.send(employee);
-    } else {
-        res.status(404).send({ message: "User Not Found" });
+    const { id } = req.params;
+
+    const login = async (id) => {
+        connection.then(function (value) {
+            value.query("SELECT * FROM buildteam_database.employees WHERE userId = ?", [id], (err, response) => {
+                if (err) {
+                    console.log("User not found");
+                }
+                else {
+                    return response;
+                }
+            } )
+        })
     }
+   let emp = login(id);
+    res.send(emp);
 })
 
 app.post("/api/employers", (req, res) => {
