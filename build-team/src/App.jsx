@@ -20,7 +20,6 @@ import LoginForm from "./components/LoginForm";
 import Home from "./pages/Home";
 import EmployeeDash from "./pages/EmployeeDashboard";
 import EmployerDash from "./pages/EmployerDashboard";
-import About from "./pages/About";
 import Form from "./pages/Form";
 
 // style
@@ -37,7 +36,6 @@ function App() {
                     <Header />
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/about" element={<About />} />
                         <Route path="/employee" element={<EmployeeDash />} />
                         <Route path="/employer" element={<EmployerDash />} />
                         <Route path="/signup" element={<SignUpForm />} />

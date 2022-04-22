@@ -141,7 +141,7 @@ const Home = () => {
                         <div className="card text-center">
                             <img
                                 className=" card-img-top"
-                                src={require("../images/team.jpg")}
+                                src={require("../images/jaels.png")}
                                 alt=""
                             />
                             <div className="card-body">
@@ -153,7 +153,7 @@ const Home = () => {
                         <div className="card text-center">
                             <img
                                 className=" card-img-top"
-                                src={require("../images/team.jpg")}
+                                src={require("../images/me.png")}
                                 alt=""
                             />
                             <div className="card-body">
@@ -164,8 +164,8 @@ const Home = () => {
                     <div className="col">
                         <div className="card text-center">
                             <img
-                                className=" card-img-top"
-                                src={require("../images/team.jpg")}
+                                className="card-img-top"
+                                src={require("../images/jordans.jpeg")}
                                 alt=""
                             />
                             <div className="card-body">
