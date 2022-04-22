@@ -24,6 +24,7 @@ function EmployerForm() {
             name: nameRef.current.value,
             type: typeRef.current.value,
             description: descriptionRef.current.value,
+            budget: 0
         }).then(res => {
             if(res.data.ok){
                 navigate("/employer")
