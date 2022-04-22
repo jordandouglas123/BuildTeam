@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const middleware = require("../middleware");
-const e = require("express");
 
 let test = async () => {
     const db = require("./database");
@@ -207,16 +206,28 @@ app.post("/api/suggestedTeam", (req, res) => {
         description: req.body.description,
         projectBudget: req.body.projectBudget,
         projectDuration: req.body.projectDuration,
-        teamMemberOne: req.body.teamMemberOne,
-        teamMemberOneLevel: req.body.teamMemberOneLevel,
-        teamMemberTwo: req.body.teamMemberTwo,
-        teamMemberTwoLevel: req.body.teamMemberTwoLevel,
-        teamMemberThree: req.body.teamMemberThree,
-        teamMemberThreeLevel: req.body.teamMemberThreeLevel,
-        teamMemberFour: req.body.teamMemberFour,
-        teamMemberFourLevel: req.body.teamMemberFourLevel,
-        teamMemberFive: req.body.teamMemberFive,
-        teamMemberFiveLevel: req.body.teamMemberFiveLevel,
+        positions : [
+            {
+                teamMemberOne: req.body.teamMemberOne,
+                teamMemberOneLevel: req.body.teamMemberOneLevel,
+            },
+            {
+                teamMemberTwo: req.body.teamMemberTwo,
+                teamMemberTwoLevel: req.body.teamMemberTwoLevel,
+            },
+            {
+                teamMemberThree: req.body.teamMemberThree,
+                teamMemberThreeLevel: req.body.teamMemberThreeLevel,
+            },
+            {
+                teamMemberFour: req.body.teamMemberFour,
+                teamMemberFourLevel: req.body.teamMemberFourLevel,
+            },
+            {
+                teamMemberFive: req.body.teamMemberFive,
+                teamMemberFiveLevel: req.body.teamMemberFiveLevel,
+            }
+        ],
     });
 
     res.send({ok: true});
