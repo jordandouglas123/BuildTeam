@@ -113,7 +113,7 @@ export default function SignUpForm() {
                                 <div className="mb-3">
                                     <input
                                         type="email"
-                                        placeholder="something@something.com"
+                                        placeholder="something@example.com"
                                         id="cname"
                                         className="field"
                                         autoComplete="off"
@@ -125,7 +125,7 @@ export default function SignUpForm() {
                                 <div className="mb-3">
                                     <input
                                         type="Password"
-                                        placeholder="Enter Password"
+                                        placeholder="Enter Password "
                                         id="Address"
                                         className="field"
                                         autoComplete="off"
