@@ -23,7 +23,7 @@ function EmployerForm() {
             userId: employerUid,
             name: nameRef.current.value,
             type: typeRef.current.value,
-            description: descriptionRef.current.value
+            description: descriptionRef.current.value,
         }).then(res => {
             if(res.data.ok){
                 navigate("/employer")
