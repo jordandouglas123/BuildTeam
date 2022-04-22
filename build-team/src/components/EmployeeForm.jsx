@@ -25,19 +25,19 @@ function EmployeeForm() {
         e.preventDefault();
         setLoading(true);
         
-        if(levelRef.current.value === 1){
+        if(levelRef.current.value === '1'){
             levelValue = "Expert"
         }
         
-        if(levelRef.current.value === 2){
+        if(levelRef.current.value === '2'){
             levelValue = "Advance"
         }
         
-        if(levelRef.current.value === 3){
+        if(levelRef.current.value === '3'){
             levelValue = "Intermidate"
         }
         
-        if(levelRef.current.value === 4){
+        if(levelRef.current.value === '4'){
             levelValue = "Intern"
         }
         
@@ -49,8 +49,8 @@ function EmployeeForm() {
             level: levelValue,
             description: decriptionRef.current.value,
             desiredSalary: desiredSalaryRef.current.value,
-            status: false,
-            employeeTeamId: null
+            status : false,
+            employeeTeamId : null
         }).then(res => {
             if(res.data.ok){
                 navigate("/employee")
