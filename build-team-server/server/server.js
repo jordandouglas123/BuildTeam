@@ -11,8 +11,7 @@ let employees = [
         level: "Advance",
         description: "Tall",
         desiredSalary: "10000",
-        employerAccept: false,
-        employerDeclined: false,
+        status: false,
         employeeTeamId: null,
     },
     {
@@ -225,14 +224,16 @@ app.use(express.urlencoded({ extended: false }));
 
 app.post("/api/employees", (req, res) => {
     employees.push({
-        userId : req.body.userId,
-        firstName : req.body.firstName,
+        userId: req.body.userId,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         occupation: req.body.occupation,
         level: req.body.level,
         description: req.body.description,
-        desiredSalary: req.body.desiredSalary
-    })
+        desiredSalary: req.body.desiredSalary,
+        status: req.body.status,
+        employeeTeamId: req.body.employeeTeamId
+    });
     return res.status(200).send({ok: true});
 })
 

@@ -49,6 +49,8 @@ function EmployeeForm() {
             level: levelValue,
             description: decriptionRef.current.value,
             desiredSalary: desiredSalaryRef.current.value,
+            status: false,
+            employeeTeamId: null
         }).then(res => {
             if(res.data.ok){
                 navigate("/employee")
