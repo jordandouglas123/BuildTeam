@@ -2,56 +2,65 @@ const express = require("express");
 const cors = require("cors");
 const middleware = require("../middleware");
 
+let test = async () => {
+    const db = require("./database");
+    const conn = await db();
+    return conn; 
+};
 
-const db = require("./database");
-const connection = db();
-  
-
-
+const connection = test();
 
 let formData = [
-  
+    
 ];
 
 let suggestedTeam = [];
 
- function findEmployee(occupation, budget, length, team, connection) {
-    
-     
-        let sql =
+async function findEmployee(occupation, budget, length, team, connection) {
+    let sql =
         "SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE occupation = ? AND level = ? AND status = 0 AND desiredSalary = (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees WHERE occupation = ? AND level = ? AND status = 0) ";
-        
-         connection.query(sql, [
+    connection.then(async function (value) {
+        let [rows, fields] = await value.query(sql, [
             occupation.Occupation,
             occupation.Level,
             occupation.Occupation,
             occupation.Level,
-         ], (err, res) => {
-             if (err) throw err;
-
-             if (res.length < 1) {
-                console.log("Nobody found");
-            }
-             else {
-                 console.log(res);
-             team.push(res[0]);
-            //budget -= rows[0].Salary * length; 
-           
+        ]);
+        if (rows.length < 1) {
+            console.log("Nobody found");
+        } else {
+            team.push(rows[0]);
+            budget -= rows[0].Salary * length;
+            console.log(rows)
         }
-         }); 
-         var que = "UPDATE heroku_1aabc12bcbbe678.employees SET Status = 1 WHERE Occupation = ? AND Level = ? AND Status = 0 AND desiredSalary = (SELECT * FROM (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees  WHERE Occupation = ? AND Level = ? AND Status = 0) temp)";
-         connection.query(que, [occupation.Occupation,
-            occupation.Level,
-            occupation.Occupation,
-            occupation.Level]);
+        });
+            var que =
+                "UPDATE heroku_1aabc12bcbbe678.employees SET status = 1 WHERE occupation = ? AND level = ? AND status = 0 AND desiredSalary = (SELECT * FROM (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees  WHERE occupation = ? AND level = ? AND status = 0) temp)";
+            connection.then(async function (value) {
+                await value.query(
+                    que,
+                    [
+                        occupation.Occupation,
+                        occupation.Level,
+                        occupation.Occupation,
+                        occupation.Level,
+                    ],
+                    (err, result) => {
+                        if (err) throw err;
+                    }
+                );
+            });
         
+     
+    
+
     return budget;
 }
 
- function buildTeam(team, budget, requiredPositions, length, connection) {
+async function buildTeam(team, budget, requiredPositions, length, connection) {
     let recommended = budget;
     for (let i = 0; i < requiredPositions.length; i++) {
-        budget =  findEmployee(
+        budget = await findEmployee(
             requiredPositions[i],
             budget,
             length,
@@ -59,33 +68,10 @@ let suggestedTeam = [];
             connection
         );
     }
-   
+
+    console.log("Recommended team costs: ", recommended - budget);
     return budget;
 }
-/* function refactor(Team, emps, budget, length, newPositions,connection) {
-    
-    for (let i = 0; i < emps.length; i++) {
-        budget += emps[i].Salary*length;
-    }
-    console.log(budget);
-    for (let i = 0; i < emps.length; i++) {
-        for (let j = 0; j < Team.length; j++) {
-            if (emps[i].ID === Team[j].employeeID) {
-                Team.splice(j, 1);
-                budget = await findEmployee(newPositions[i], budget, length, Team,connection);
-            }
-        }
-    } 
- 
-      for (let i = 0; i < emps.length; i++) {
-       var que =
-         "UPDATE buildteam_database.employees SET Status = 0 WHERE employeeID = ?";
-        connection.query(que, [emps[i].ID], (err, result) => {
-         if (err) throw err;
-       });
-    } 
-    
-} */
 
 let currentTeams = [
     {
@@ -163,8 +149,8 @@ app.post("/api/employees", (req, res) => {
     const status = req.body.status;
     const employeeTeamId = req.body.employeeTeamId;
 
-    
-        connection.query(
+    connection.then(function (value) {
+        value.query(
             "INSERT INTO heroku_1aabc12bcbbe678.employees (userId,firstName,lastName,occupation,level,description,desiredSalary,status,employeeTeamId) VALUES(?,?,?,?,?,?,?,?,?) ",
             [
                 userId,
@@ -185,15 +171,15 @@ app.post("/api/employees", (req, res) => {
                 }
             }
         );
-    
+    });
     return res.status(200).send({ ok: true });
 });
 
 app.get("/api/employee:id", (req, res) => {
     const { id } = req.params;
     const login = async (id, res) => {
-        
-            connection.query(
+        connection.then(function (value) {
+            value.query(
                 "SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE userId = ?",
                 [id],
                 (err, response) => {
@@ -205,7 +191,7 @@ app.get("/api/employee:id", (req, res) => {
                     }
                 }
             );
-       
+        });
     };
     login(id, res);
 });
@@ -218,8 +204,8 @@ app.post("/api/employers", (req, res) => {
     const budget = req.body.budget;
 
     const employerSignUp = async (res) => {
-        
-            connection.query(
+        connection.then((value) => {
+            value.query(
                 "INSERT INTO heroku_1aabc12bcbbe678.employers (userId, name, type, description, budget) VALUES(?,?,?,?,?) ",
                 [userId, name, type, description, budget],
                 (err, response) => {
@@ -232,16 +218,17 @@ app.post("/api/employers", (req, res) => {
                     }
                 }
             );
-        
+        });
     };
     employerSignUp(res);
 });
 
 app.get("/api/employer:id", (req, res) => {
     const { id } = req.params;
+    console.log(id)
     const login = async (id, res) => {
-        
-            connection.query(
+        connection.then(function (value) {
+            value.query(
                 "SELECT * FROM heroku_1aabc12bcbbe678.employers WHERE userId = ?",
                 [id],
                 (err, response) => {
@@ -253,7 +240,7 @@ app.get("/api/employer:id", (req, res) => {
                     }
                 }
             );
-        
+        });
     };
     login(id, res);
 });
@@ -289,9 +276,8 @@ app.post("/api/suggestedTeam", (req, res) => {
             },
         ],
     });
-  
+    console.log(formData[0]) 
     buildTeam(suggestedTeam, formData[0].budget, formData[0].positions, formData[0].projectDuration, connection)
-    console.log(suggestedTeam); 
     res.send({ ok: true });
 });
 
@@ -299,14 +285,43 @@ app.get("/api/suggestedTeams", (req, res) => {
     res.send(suggestedTeam);
 });
 
-app.get("/api/currentTeams", (req, res) => {
-    res.send(currentTeams);
+app.post("/api/currentTeams:id", (req, res) => {
+    const { id } = req.params;
+    const employee = req.body.teamMemberId
+    const editMember = async (res) => {
+        connection.then((value) => {
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeTeamID = ? WHERE userID = ?", [id, employee], 
+                (err, response) => {
+                    if(err){
+                        console.log(err.message);
+                    }
+                    else{
+                        res.send({ok: true})
+                    }
+                }            
+            );
+        })
+    }
+    editMember(res);
 });
 
 app.get("/api/team:id", (req, res) => {
     const { id } = req.params;
-    let team = currentTeams.filter((team) => team.teamId === id);
-    res.send(team[0]);
+    const team = async (res) => {
+        connection.then((value) => {
+            value.query("SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE employeeTeamId = ?", [id],
+                (err, response) => {
+                    if(err){
+                        console.log(err.message)
+                    }
+                    else{
+                        res.send(response)
+                    }
+                }
+            );
+        })
+    }
+    team(res); 
 });
 
 app.listen(port, () => {
