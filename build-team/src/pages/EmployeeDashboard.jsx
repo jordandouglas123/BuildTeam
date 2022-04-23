@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import axios from "axios"
 
 
+
 const EmployeeDashboard = () => {
     const { logout, currentUser, authToken } = useAuth();
     const token = authToken;
@@ -12,6 +13,7 @@ const EmployeeDashboard = () => {
     const navigate = useNavigate();
 
     const [employee, setEmployee] = useState({});
+    const [offer, setOffer] = useState({});
 
     const handleSignout = async () => {
         try {
@@ -29,6 +31,15 @@ const EmployeeDashboard = () => {
             }
         });
         setEmployee(res.data)
+    }
+
+    const fetchOffer = async (token) => {
+        const res = await axios.get("http://localhost:5000/api/employer" + employee.employerOfferID, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        });
+        setOffer(res.data)
     }
 
     useEffect(() => {
@@ -174,9 +185,7 @@ const EmployeeDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Pending Offers</div>
-                            <span className="badge bg-primary rounded-pill">
-                                3
-                            </span>
+                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
                         </div>
                         {/* Card Body */}
                         <div className="card-body p-0">

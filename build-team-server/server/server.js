@@ -1,30 +1,77 @@
 const express = require("express");
 const cors = require("cors");
 const middleware = require("../middleware");
-const e = require("express");
 
 let test = async () => {
     const db = require("./database");
     const conn = await db();
-    return conn;
+    return conn; 
 };
 
 const connection = test();
 
-let suggestedTeam = [
-    {
-        userId: "3eKwNl38WrS012PBUHpgwFd4gB92",
-        firstName: "Akiel",
-        lastName: "Romain",
-        occupation: "Software Engineer",
-        level: "Advance",
-        description: "Tall but a little shorter than Jael",
-        desiredSalary: "10000",
-        employerAccept: false,
-        employerDeclined: false,
-        employeeTeamId: null,
-    },
+let formData = [
+    
 ];
+
+let suggestedTeam = [];
+
+async function findEmployee(occupation, budget, length, team, connection) {
+    let sql =
+        "SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE occupation = ? AND level = ? AND status = 0 AND desiredSalary = (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees WHERE occupation = ? AND level = ? AND status = 0) ";
+    connection.then(async function (value) {
+        let [rows, fields] = await value.query(sql, [
+            occupation.Occupation,
+            occupation.Level,
+            occupation.Occupation,
+            occupation.Level,
+        ]);
+        if (rows.length < 1) {
+            console.log("Nobody found");
+        } else {
+            team.push(rows[0]);
+            budget -= rows[0].Salary * length;
+            console.log(rows)
+        }
+        });
+            var que =
+                "UPDATE heroku_1aabc12bcbbe678.employees SET status = 1 WHERE occupation = ? AND level = ? AND status = 0 AND desiredSalary = (SELECT * FROM (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees  WHERE occupation = ? AND level = ? AND status = 0) temp)";
+            connection.then(async function (value) {
+                await value.query(
+                    que,
+                    [
+                        occupation.Occupation,
+                        occupation.Level,
+                        occupation.Occupation,
+                        occupation.Level,
+                    ],
+                    (err, result) => {
+                        if (err) throw err;
+                    }
+                );
+            });
+        
+     
+    
+
+    return budget;
+}
+
+async function buildTeam(team, budget, requiredPositions, length, connection) {
+    let recommended = budget;
+    for (let i = 0; i < requiredPositions.length; i++) {
+        budget = await findEmployee(
+            requiredPositions[i],
+            budget,
+            length,
+            team,
+            connection
+        );
+    }
+
+    console.log("Recommended team costs: ", recommended - budget);
+    return budget;
+}
 
 let currentTeams = [
     {
@@ -128,7 +175,6 @@ app.post("/api/employees", (req, res) => {
     return res.status(200).send({ ok: true });
 });
 
-
 app.get("/api/employee:id", (req, res) => {
     const { id } = req.params;
     const login = async (id, res) => {
@@ -150,7 +196,7 @@ app.get("/api/employee:id", (req, res) => {
     login(id, res);
 });
 
-app.post("/api/employers", (req, res) => { 
+app.post("/api/employers", (req, res) => {
     const userId = req.body.userId;
     const name = req.body.name;
     const type = req.body.type;
@@ -163,14 +209,12 @@ app.post("/api/employers", (req, res) => {
                 "INSERT INTO heroku_1aabc12bcbbe678.employers (userId, name, type, description, budget) VALUES(?,?,?,?,?) ",
                 [userId, name, type, description, budget],
                 (err, response) => {
-                    if(err){
+                    if (err) {
                         console.log(err.message);
                         console.log("Not Created");
-                        
-                    }
-                    else{
+                    } else {
                         console.log("Employer Created");
-                        return res.send({ok: true})
+                        return res.send({ ok: true });
                     }
                 }
             );
@@ -179,9 +223,9 @@ app.post("/api/employers", (req, res) => {
     employerSignUp(res);
 });
 
-
 app.get("/api/employer:id", (req, res) => {
     const { id } = req.params;
+    console.log(id)
     const login = async (id, res) => {
         connection.then(function (value) {
             value.query(
@@ -202,38 +246,82 @@ app.get("/api/employer:id", (req, res) => {
 });
 
 app.post("/api/suggestedTeam", (req, res) => {
-    
-    suggestedTeam.push({
+    formData = [];
+    suggestedTeam = [];
+    console.log(formData[0])
+    formData.push({
         description: req.body.description,
         projectBudget: req.body.projectBudget,
         projectDuration: req.body.projectDuration,
-        teamMemberOne: req.body.teamMemberOne,
-        teamMemberOneLevel: req.body.teamMemberOneLevel,
-        teamMemberTwo: req.body.teamMemberTwo,
-        teamMemberTwoLevel: req.body.teamMemberTwoLevel,
-        teamMemberThree: req.body.teamMemberThree,
-        teamMemberThreeLevel: req.body.teamMemberThreeLevel,
-        teamMemberFour: req.body.teamMemberFour,
-        teamMemberFourLevel: req.body.teamMemberFourLevel,
-        teamMemberFive: req.body.teamMemberFive,
-        teamMemberFiveLevel: req.body.teamMemberFiveLevel,
+        positions: [
+            {
+                Occupation: req.body.teamMemberOne,
+                Level: req.body.teamMemberOneLevel,
+            },
+            {
+                Occupation: req.body.teamMemberTwo,
+                Level: req.body.teamMemberTwoLevel,
+            },
+            {
+                Occupation: req.body.teamMemberThree,
+                Level: req.body.teamMemberThreeLevel,
+            },
+            {
+                Occupation: req.body.teamMemberFour,
+                Level: req.body.teamMemberFourLevel,
+            },
+            {
+                Occupation: req.body.teamMemberFive,
+                Level: req.body.teamMemberFiveLevel,
+            },
+        ],
     });
-
-    res.send({ok: true});
+    console.log(formData[0]) 
+    buildTeam(suggestedTeam, formData[0].budget, formData[0].positions, formData[0].projectDuration, connection)
+    res.send({ ok: true });
 });
 
 app.get("/api/suggestedTeams", (req, res) => {
     res.send(suggestedTeam);
 });
 
-app.get("/api/currentTeams", (req, res) => {
-    res.send(currentTeams);
+app.post("/api/currentTeams:id", (req, res) => {
+    const { id } = req.params;
+    const employee = req.body.teamMemberId
+    const editMember = async (res) => {
+        connection.then((value) => {
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeTeamID = ? WHERE userID = ?", [id, employee], 
+                (err, response) => {
+                    if(err){
+                        console.log(err.message);
+                    }
+                    else{
+                        res.send({ok: true})
+                    }
+                }            
+            );
+        })
+    }
+    editMember(res);
 });
 
 app.get("/api/team:id", (req, res) => {
     const { id } = req.params;
-    let team = currentTeams.filter((team) => team.teamId === id);
-    res.send(team[0]);
+    const team = async (res) => {
+        connection.then((value) => {
+            value.query("SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE employeeTeamId = ?", [id],
+                (err, response) => {
+                    if(err){
+                        console.log(err.message)
+                    }
+                    else{
+                        res.send(response)
+                    }
+                }
+            );
+        })
+    }
+    team(res); 
 });
 
 app.listen(port, () => {

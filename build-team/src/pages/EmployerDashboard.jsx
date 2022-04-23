@@ -10,7 +10,7 @@ const EmployerDashboard = () => {
 
     const [employeer, setEmployer] = useState({});
     const [suggestedTeam, setSuggestedTeam] = useState([]);
-    const [currentTeam, setCurrentTeam] = useState([]);
+    const [currentTeam, setCurrentTeam] = useState();
 
     const handleSignout = async () => {
         try {
@@ -36,7 +36,7 @@ const EmployerDashboard = () => {
     const fetchSuggestedTeamData = async (token) => {
 
         const teamRes = await axios.get(
-            "http://localhost:5000/api/suggestedTeam",
+            "http://localhost:5000/api/suggestedTeams",
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -57,6 +57,15 @@ const EmployerDashboard = () => {
             }
         );
         setCurrentTeam(teamRes.data);
+    }
+
+    const postMemeber = async (member) => {
+        const res = await axios.post("http://localhost:5000/api/currentTeams" + currentUser.uid, {
+            teamMemberId: member.userId
+        })
+        if(res.data.ok){
+            navigate("/employer")
+        }
     }
 
 
@@ -110,31 +119,6 @@ const EmployerDashboard = () => {
                                     Propose Duration:{" "}
                                     <p className="ms-2">12 Months</p>
                                 </h6>
-                                <div className="d-flex">
-                                    <h5>Positions Required:</h5>
-                                    <div className="mx-2">
-                                        <span className="badge bg-info mx-1">
-                                            Frontend Developer
-                                        </span>
-                                        <span className="badge bg-info mx-1">
-                                            Backend Developer
-                                        </span>
-                                        <span className="badge bg-info mx-1">
-                                            Database Administrator
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="d-flex">
-                                    <h5>Desired Positions:</h5>
-                                    <div className="mx-2">
-                                        <span className="badge bg-success mx-1">
-                                            Fullstack Developer
-                                        </span>
-                                        <span className="badge bg-success mx-1">
-                                            Software Designer
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,16 +132,23 @@ const EmployerDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Current Team</div>
+                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
                         </div>
                         {/* Card Body */}
+                        
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
                                 {/* Team Member  */}
-                                {currentTeam.members?.map((team, index) => ( 
-                                    <a className="list-group-item list-group-item-action" key={index}>
+                                {currentTeam?.map((team, index) => (
+                                    <a
+                                        className="list-group-item list-group-item-action"
+                                        key={index}
+                                    >
                                         <div className="d-flex w-100 justify-content-between">
-                                            <h5>{team.firstName} {team.lastName}</h5>
+                                            <h5>
+                                                {team.firstName} {team.lastName}
+                                            </h5>
                                             <small>{team.level}</small>
                                         </div>
                                         <small>{team.occupation}</small>
@@ -172,7 +163,10 @@ const EmployerDashboard = () => {
                 <div className="col pe-0">
                     <div className="card h-100 rounded-0">
                         {/* Card Header */}
-                        <div className="card-header">Suggested Team</div>
+                        <div className="card-header d-flex justify-content-between">
+                            <div>Suggested Team</div>
+                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
+                        </div>
                         {/* Card Body */}
                         <div className="card-body p-0">
                             {/* Accordion Control */}
@@ -183,7 +177,7 @@ const EmployerDashboard = () => {
                                 {/* Item 1 */}
                                 {suggestedTeam?.map((member, index) => (
                                     <div className="accordion-item" key={index}>
-                                        <h2 
+                                        <h2
                                             className="accordion-header"
                                             id={`heading${index}`}
                                         >
@@ -196,24 +190,35 @@ const EmployerDashboard = () => {
                                                 aria-controls={`collapse${index}`}
                                             >
                                                 <div className="d-flex flex-column">
-                                                    <h6>{member.firstName} {member.lastName}</h6>
-                                                    <small>{member.occupation}</small>
+                                                    <h6>
+                                                        {member.firstName}{" "}
+                                                        {member.lastName}
+                                                    </h6>
+                                                    <small>
+                                                        {member.occupation}
+                                                    </small>
                                                 </div>
                                             </button>
                                         </h2>
                                         <div
-                                            id={`collapse${index}`} 
+                                            id={`collapse${index}`}
                                             className="accordion-collapse collapse"
                                             aria-labelledby={`heading${index}`}
                                             data-bs-parent="#pastJobs"
                                         >
                                             <div className="accordion-body">
                                                 <p>Level: {member.level}</p>
-                                                <p>Desired Salary: ${member.desiredSalary}/mo.</p>
+                                                <p>
+                                                    Desired Salary: $
+                                                    {member.desiredSalary}/mo.
+                                                </p>
                                                 <div className="d-flex justify-content-end">
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-success me-2"
+                                                        onClick={() =>
+                                                            postMemeber(member)
+                                                        }
                                                     >
                                                         Invite
                                                     </button>
