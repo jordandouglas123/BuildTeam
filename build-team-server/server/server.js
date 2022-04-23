@@ -5,7 +5,7 @@ const middleware = require("../middleware");
 let test = async () => {
     const db = require("./database");
     const conn = await db();
-    return conn;
+    return conn; 
 };
 
 const connection = test();
@@ -31,6 +31,7 @@ async function findEmployee(occupation, budget, length, team, connection) {
         } else {
             team.push(rows[0]);
             budget -= rows[0].Salary * length;
+            console.log(rows)
             var que =
                 "UPDATE heroku_1aabc12bcbbe678.employees SET status = 1 WHERE occupation = ? AND level = ? AND status = 0 AND desiredSalary = (SELECT * FROM (SELECT MIN(desiredSalary) FROM heroku_1aabc12bcbbe678.employees  WHERE occupation = ? AND level = ? AND status = 0) temp)";
             connection.then(async function (value) {
@@ -47,7 +48,6 @@ async function findEmployee(occupation, budget, length, team, connection) {
                     }
                 );
             });
-            console.log(rows)
         }
         console.log(rows);
     });
@@ -223,6 +223,7 @@ app.post("/api/employers", (req, res) => {
 
 app.get("/api/employer:id", (req, res) => {
     const { id } = req.params;
+    console.log(id)
     const login = async (id, res) => {
         connection.then(function (value) {
             value.query(
@@ -282,14 +283,43 @@ app.get("/api/suggestedTeams", (req, res) => {
     res.send(suggestedTeam);
 });
 
-app.get("/api/currentTeams", (req, res) => {
-    res.send(currentTeams);
+app.post("/api/currentTeams:id", (req, res) => {
+    const { id } = req.params;
+    const employee = req.body.teamMemberId
+    const editMember = async (res) => {
+        connection.then((value) => {
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeTeamID = ? WHERE userID = ?", [id, employee], 
+                (err, response) => {
+                    if(err){
+                        console.log(err.message);
+                    }
+                    else{
+                        res.send({ok: true})
+                    }
+                }            
+            );
+        })
+    }
+    editMember(res);
 });
 
 app.get("/api/team:id", (req, res) => {
     const { id } = req.params;
-    let team = currentTeams.filter((team) => team.teamId === id);
-    res.send(team[0]);
+    const team = async (res) => {
+        connection.then((value) => {
+            value.query("SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE employeeTeamId = ?", [id],
+                (err, response) => {
+                    if(err){
+                        console.log(err.message)
+                    }
+                    else{
+                        res.send(response)
+                    }
+                }
+            );
+        })
+    }
+    team(res); 
 });
 
 app.listen(port, () => {
