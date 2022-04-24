@@ -1,10 +1,8 @@
-import "../css/dashbord.css"
-import React, {useEffect, useState} from 'react';
+import "../css/dashbord.css";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios"
-
-
+import axios from "axios";
 
 const EmployeeDashboard = () => {
     const { logout, currentUser, authToken } = useAuth();
@@ -15,42 +13,83 @@ const EmployeeDashboard = () => {
     const [employee, setEmployee] = useState({});
     const [offer, setOffer] = useState({});
 
+
+    const acceptedRef = useRef()
+
     const handleSignout = async () => {
         try {
             await logout();
-            navigate("/login")
+            navigate("/login");
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     const fetchData = async (token) => {
-        const res = await axios.get("http://localhost:5000/api/employee" + currentUser.uid, {
-            headers: {
-                Authorization: "Bearer " + token,
+        const res = await axios.get(
+            "http://localhost:5000/api/employee" + currentUser.uid,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
             }
-        });
-        setEmployee(res.data)
-    }
+        );
+        setEmployee(res.data);
+    };
 
     const fetchOffer = async (token) => {
-        const res = await axios.get("http://localhost:5000/api/employer" + employee.employerOfferID, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        });
-        setOffer(res.data)
+        const res = await axios.get(
+            "http://localhost:5000/api/employer" + employee[0]?.employerOfferID,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        setOffer(res.data);
+    };
+
+    const acceptedOffer = async(token) => {
+        const res = await axios.post(
+            "http://localhost:5000/api/offer" + employee[0].userId,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+                UserId: employee[0].userId,
+                employerOfferId: employee[0].employerOfferID,
+            }
+        );
+        console.log(res.data.ok)
+    }
+    const declinedOffer = async(token) => {
+        const res = await axios.post(
+            "http://localhost:5000/api/declined" + employee[0].userId,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+                employeeUserId: employee[0].userId,
+            }
+        );
+        console.log(res.data.ok)
     }
 
     useEffect(() => {
-        if(token){
+        if (token) {
             fetchData(token);
         }
-    }, [token])
+    }, [token]);
+
+    useEffect(() => {
+        if (token) {
+            fetchOffer(token);
+        }
+    }, [employee]);
 
     //console.log(employee)
+    //console.log(offer);
     //console.log(authToken)
-
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -72,7 +111,10 @@ const EmployeeDashboard = () => {
                     <div className="card-body">
                         <div className="row h-100 mb-2">
                             <div className="col d-flex flex-column justify-content-center align-items-center">
-                                <h3 className="card-title">{employee[0]?.firstName} {employee[0]?.lastName}</h3>
+                                <h3 className="card-title">
+                                    {employee[0]?.firstName}{" "}
+                                    {employee[0]?.lastName}
+                                </h3>
                                 <h5 className="d-flex">
                                     Occupation:{" "}
                                     <p className="ms-2">
@@ -86,23 +128,6 @@ const EmployeeDashboard = () => {
                                 <p className="card-text">
                                     {employee[0]?.description}
                                 </p>
-                                <div className="d-flex">
-                                    <h5>Skills:</h5>
-                                    <div className="mx-2">
-                                        <span className="badge bg-info mx-1">
-                                            HTML
-                                        </span>
-                                        <span className="badge bg-info mx-1">
-                                            CSS
-                                        </span>
-                                        <span className="badge bg-info mx-1">
-                                            Javascript
-                                        </span>
-                                        <span className="badge bg-info mx-1">
-                                            React
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,59 +209,25 @@ const EmployeeDashboard = () => {
                     <div className="card h-100 rounded-0">
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
-                            <div>Pending Offers</div>
-                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
+                            <div>Pending Offer</div>
+                            <div
+                                className="btn btn-outline-dark"
+                                onClick={() => {
+                                    window.location.reload();
+                                }}
+                            >
+                                Reload
+                            </div>
                         </div>
                         {/* Card Body */}
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
-                            <div className="list-group list-group-flush">
-                                {/* Offer 1 */}
-                                <Link
-                                    to="/eview"
-                                    className="list-group-item list-group-item-action"
-                                >
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>FANG</h5>
-                                        <small>just now</small>
-                                    </div>
-                                </Link>
 
-                                {/* Offer 2 */}
-                                <a className="list-group-item list-group-item-action">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>TT Ride Share</h5>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </a>
-
-                                {/* Offer 3 */}
-                                <a className="list-group-item list-group-item-action">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5>Prestige Holdings</h5>
-                                        <small>4 days ago</small>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {/* Card Footer */}
-                        <div className="card-footer">View All Offers</div>
-                    </div>
-                </div>
-
-                {/* Job History Card */}
-                <div className="col pe-0">
-                    <div className="card h-100 rounded-0">
-                        {/* Card Header */}
-                        <div className="card-header">Job History</div>
-                        {/* Card Body */}
-                        <div className="card-body p-0">
                             {/* Accordion Control */}
                             <div
                                 className="accordion accordion-flush"
                                 id="pastJobs"
                             >
-                                {/* Item 1 */}
                                 <div className="accordion-item">
                                     <h2
                                         className="accordion-header"
@@ -250,7 +241,7 @@ const EmployeeDashboard = () => {
                                             aria-expanded="false"
                                             aria-controls="collapseOne"
                                         >
-                                            Apple
+                                            {offer[0]?.name}
                                         </button>
                                     </h2>
                                     <div
@@ -260,77 +251,35 @@ const EmployeeDashboard = () => {
                                         data-bs-parent="#pastJobs"
                                     >
                                         <div className="accordion-body">
-                                            Short Job Description
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Item 2 */}
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingTwo"
-                                    >
-                                        <button
-                                            className="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo"
-                                        >
-                                            Google
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseTwo"
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby="headingTwo"
-                                        data-bs-parent="#pastJobs"
-                                    >
-                                        <div className="accordion-body">
-                                            Short Job Description 2
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Item 3 */}
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingThree"
-                                    >
-                                        <button
-                                            className="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="collapseThree"
-                                        >
-                                            Netflix
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseThree"
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby="headingThree"
-                                        data-bs-parent="#pastJobs"
-                                    >
-                                        <div className="accordion-body">
-                                            Short Job Description 3
+                                            {offer[0]?.description}
+                                            <div className="d-flex justify-content-end">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-success me-2"
+                                                    onClick={() => {acceptedOffer()}}
+                                                >
+                                                    Accept
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-danger"
+                                                    onClick={() => {declinedOffer()}}
+                                                >
+                                                    Reject
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Card Footer */}
-                        <div className="card-footer">
-                            View Entire Job History
-                        </div>
+                        <div className="card-footer">View All Offers</div>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
- 
+};
+
 export default EmployeeDashboard;

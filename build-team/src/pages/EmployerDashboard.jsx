@@ -77,9 +77,10 @@ const EmployerDashboard = () => {
         }
     }, [token]);
 
+
     //console.log(employeer) 
     //console.log(suggestedTeam);
-    //console.log(currentTeam)
+    console.log(currentTeam)
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">

@@ -225,7 +225,6 @@ app.post("/api/employers", (req, res) => {
 
 app.get("/api/employer:id", (req, res) => {
     const { id } = req.params;
-    console.log(id)
     const login = async (id, res) => {
         connection.then(function (value) {
             value.query(
@@ -285,12 +284,57 @@ app.get("/api/suggestedTeams", (req, res) => {
     res.send(suggestedTeam);
 });
 
+app.post("/api/offer:id", (req, res) => {
+    const { id } = req.params;
+    const userId = req.body.userId
+    const employerOfferID = req.body.employerOfferId
+    const update = async (res) => {
+        connection.then((value) => {
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeTeamID = ?, accepted = 1, employerOffer = 0, employerOfferID = ? WHERE userId = ?", [employerOfferID, null, id],
+                (err, response) => {
+                    if(err){
+                        console.log(err.message);
+                    }
+                    else{
+                        res.send({ok: true})
+                    }
+                }
+            );
+        })
+    }
+    update(res)
+    console.log("accept offer: " + id);
+})
+
+app.post("/api/declined:id", (req, res) => {
+    const { id } = req.params;
+    const userId = req.body.userId;
+    const employerOfferID = req.body.employerOfferId;
+    const update = async (res) => {
+        connection.then((value) => {
+            value.query(
+                "UPDATE heroku_1aabc12bcbbe678.employees SET employerOffer = 0, employerOfferID = ? WHERE userId = ?",
+                [null, id],
+                (err, response) => {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        res.send({ ok: true });
+                    }
+                }
+            );
+        });
+    };
+    update(res);
+    //console.log("Updated to decline offer: " + id);
+});
+
 app.post("/api/currentTeams:id", (req, res) => {
     const { id } = req.params;
     const employee = req.body.teamMemberId
     const editMember = async (res) => {
         connection.then((value) => {
-            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeTeamID = ? WHERE userID = ?", [id, employee], 
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeOfferID = ?, employeeOffer = 1 WHERE userID = ?", [id, employee], 
                 (err, response) => {
                     if(err){
                         console.log(err.message);
@@ -309,7 +353,7 @@ app.get("/api/team:id", (req, res) => {
     const { id } = req.params;
     const team = async (res) => {
         connection.then((value) => {
-            value.query("SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE employeeTeamId = ?", [id],
+            value.query("SELECT * FROM heroku_1aabc12bcbbe678.employees WHERE accepted = 1 AND employeeTeamId = ?", [id],
                 (err, response) => {
                     if(err){
                         console.log(err.message)

@@ -27,6 +27,7 @@ export default function SignUpForm() {
                 navigate("/employerform");
             }
         } catch (error) {
+            alert("Email already in use. Please try another.")
             console.log(error.message)
         }
         setLoading(false);
