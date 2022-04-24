@@ -42,7 +42,7 @@ function LoginForm() {
                 <div className=" form-container mx-auto ">
                     <img
                         src={require("../images/logo.PNG")}
-                        className=" rounded mx-auto d-block  "
+                        className=" rounded mx-auto d-block "
                     />
 
                     <form onSubmit={handleSubmit}>
