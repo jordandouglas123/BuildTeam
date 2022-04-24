@@ -62,10 +62,7 @@ const EmployeeDashboard = () => {
                 employerOfferId: employee[0].employerOfferID,
             }
         );
-        if(res.data.ok){
-            alert("Offer Accept Sent")
-            window.location.reload();
-        }
+        console.log(res.data.ok)
     }
 
     const declinedOffer = async(token) => {
@@ -79,10 +76,7 @@ const EmployeeDashboard = () => {
                 employeeUserId: employee[0].userId,
             }
         );
-        if (res.data.ok) {
-            alert("Offer Decline Sent")
-            window.location.reload();
-        }
+        console.log(res.data.ok)
     }
 
     const fetchEmployerData = async (token) => {

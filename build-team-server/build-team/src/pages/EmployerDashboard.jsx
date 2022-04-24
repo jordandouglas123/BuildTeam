@@ -11,7 +11,6 @@ const EmployerDashboard = () => {
     const [employeer, setEmployer] = useState({});
     const [suggestedTeam, setSuggestedTeam] = useState([]);
     const [currentTeam, setCurrentTeam] = useState();
-    const [loading, setLoading] = useState(false);
 
     const handleSignout = async () => {
         try {
@@ -69,11 +68,11 @@ const EmployerDashboard = () => {
             }
         );
         if(res.data.ok){
-            alert("Invite Sent")
-            window.location.reload()
+            navigate("/employer")
         }
     }
 
+<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
     const postMemeberDecline = async (member) => {
         setLoading(true)
         const res = await axios.post(
@@ -92,6 +91,8 @@ const EmployerDashboard = () => {
 
     }
 
+=======
+>>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
 
     useEffect(() => {
         if (token) {
@@ -104,7 +105,7 @@ const EmployerDashboard = () => {
 
     //console.log(employeer) 
     //console.log(suggestedTeam);
-    //console.log(currentTeam)
+    console.log(currentTeam)
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -161,17 +162,10 @@ const EmployerDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Current Team</div>
-                            <button
-                                className="btn btn-outline-dark"
-                                onClick={() => {
-                                    window.location.reload();
-                                }}
-                            >
-                                Reload
-                            </button>
+                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
                         </div>
                         {/* Card Body */}
-
+                        
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
@@ -201,15 +195,7 @@ const EmployerDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Suggested Team</div>
-                            <button
-                                className="btn btn-outline-dark"
-                                onClick={() => {
-                                    window.location.reload();
-                                }}
-                                disabled={loading}
-                            >
-                                Reload
-                            </button>
+                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
                         </div>
                         {/* Card Body */}
                         <div className="card-body p-0">
@@ -263,19 +249,25 @@ const EmployerDashboard = () => {
                                                         onClick={() =>
                                                             postMemeber(member)
                                                         }
+<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                                         disabled={loading}
+=======
+>>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                                                     >
                                                         Invite
                                                     </button>
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-danger"
+<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                                         onClick={() =>
                                                             postMemeberDecline(
                                                                 member
                                                             )
                                                         }
                                                         disabled={loading}
+=======
+>>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                                                     >
                                                         Decline
                                                     </button>
@@ -291,10 +283,13 @@ const EmployerDashboard = () => {
                             <button
                                 type="button"
                                 className="btn btn-outline-secondary"
+<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                 onClick={() => {
                                     fetchSuggestedTeamData(token);
                                 }}
                                 disabled={loading}
+=======
+>>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                             >
                                 Refactor
                             </button>
@@ -302,7 +297,10 @@ const EmployerDashboard = () => {
                                 to="/form"
                                 type="button"
                                 className="btn btn-outline-secondary"
+<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                 disabled={loading}
+=======
+>>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                             >
                                 Search
                             </Link>

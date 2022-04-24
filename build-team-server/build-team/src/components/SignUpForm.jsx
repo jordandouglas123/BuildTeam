@@ -75,7 +75,7 @@ export default function SignUpForm() {
 
                     {/* TAB CONTENT */}
 
-                    <form onSubmit={handleSubmit} noValidate>
+                    <form onSubmit={ handleSubmit } noValidate>
                         <div className="tab-content">
                             {/* EMPLOYEE CONTENT */}
                             <div
@@ -91,7 +91,7 @@ export default function SignUpForm() {
                                         className="field"
                                         autoComplete="off"
                                         required
-                                        ref={employeeEmailRef}
+                                        ref={ employeeEmailRef }
                                     />
                                 </div>
 
@@ -102,7 +102,7 @@ export default function SignUpForm() {
                                         id="Address1"
                                         className="field"
                                         required
-                                        ref={employeePasswordRef}
+                                        ref={ employeePasswordRef }
                                     />
                                 </div>
 
@@ -110,10 +110,7 @@ export default function SignUpForm() {
                             </div>
 
                             {/* EMPLOYER CONTENT */}
-                            <div
-                                className="tab-pane fade show m-4"
-                                id="employer"
-                            >
+                            <div className="tab-pane fade show m-4" id="employer">
                                 <div className="mb-3">
                                     <input
                                         type="email"
@@ -122,7 +119,7 @@ export default function SignUpForm() {
                                         className="field"
                                         autoComplete="off"
                                         required
-                                        ref={employerEmailRef}
+                                        ref={ employerEmailRef }
                                     />
                                 </div>
 
@@ -133,8 +130,8 @@ export default function SignUpForm() {
                                         id="Address"
                                         className="field"
                                         autoComplete="off"
-                                        required
-                                        ref={employerPasswordRef}
+                                        required 
+                                        ref={ employerPasswordRef }
                                     />
                                 </div>
                             </div>
@@ -156,8 +153,7 @@ export default function SignUpForm() {
                         >
                             {" "}
                             Already have an account ?{" "}
-                            <Link to="/login"> Login </Link> |{" "}
-                            <Link to="/"> Home </Link>
+                            <Link to="/login"> Login </Link>
                         </div>
                     </form>
                 </div>

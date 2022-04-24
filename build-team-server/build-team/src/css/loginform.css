@@ -12,7 +12,4 @@
     background: url("../images/communication.jpg") no-repeat;
     width: 100%;
     background-size: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
 }

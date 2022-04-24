@@ -10,9 +10,12 @@ let test = async () => {
 
 const connection = test();
 
-let formData = [];
+let formData = [
+   
+];
+
+
 let suggestedTeam = [];
-let refactorlist = [];
 
 async function findEmployee(occupation, budget, length, team, connection) {
     let sql =
@@ -73,15 +76,15 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
  async function refactor(Team, emps, budget, length,connection) {
    
     for (let i = 0; i < emps.length; i++) {
-        budget += emps[i].member.desiredSalary*length;
+        budget += emps[i].Salary*length;
     }
    
     for (let i = 0; i < emps.length; i++) {
         for (let j = 0; j < Team.length; j++) {
             
-            if (emps[i].member.userId === Team[j].userId) {
+            if (emps[i].userId === Team[j].userId) {
                 Team.splice(j, 1);
-                budget = await findEmployee({ Occupation: emps[i].member.occupation, Level: emps[i].member.level }, budget, length, Team,connection);
+                budget = await findEmployee({ Occupation: emps[i].occupation, Level: emps[i].level }, budget, length, Team,connection);
                 
             }
             
@@ -92,7 +95,7 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
       for (let i = 0; i < emps.length; i++) {
        var que =
          "UPDATE heroku_1aabc12bcbbe678.employees SET Status = 0 WHERE userId = ?";
-        connection.then(async function (value){value.query(que, [emps[i].member.userId], (err, result) => {
+        connection.then(async function (value){value.query(que, [emps[i].userId], (err, result) => {
          if (err) throw err;
             console.log(result.affectedRows);
         });
@@ -101,6 +104,61 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
     
 } 
 
+let currentTeams = [
+    {
+        teamId: "NRGa61GY2hgsBPJmU8dD3InosbX2",
+        members: [
+            {
+                userId: "3eKwNl38WrS012PBUHpgwFd4gB92",
+                firstName: "Akiel",
+                lastName: "Romain",
+                occupation: "Software Engineer",
+                level: "Advance",
+                description: "Tall but a little shorter than Jael",
+                desiredSalary: "10000",
+                employerAccept: false,
+                employerDeclined: false,
+                employeeTeamId: null,
+            },
+            {
+                userId: "4",
+                firstName: "Hasie",
+                lastName: "Alexander",
+                occupation: "Frontend Developer",
+                level: "Intermidate",
+                description: "King",
+                desiredSalary: "10000",
+                employerAccept: false,
+                employerDeclined: false,
+                employeeTeamId: null,
+            },
+            {
+                userId: "5",
+                firstName: "Jordon",
+                lastName: "Douglas",
+                occupation: "Backend Developer",
+                level: "Intermidate",
+                description: "King",
+                desiredSalary: "10000",
+                employerAccept: false,
+                employerDeclined: false,
+                employeeTeamId: null,
+            },
+            {
+                userId: "1",
+                firstName: "Jael",
+                lastName: "Romain",
+                occupation: "Software Developer",
+                level: "Advance",
+                description: "Tall",
+                desiredSalary: "10000",
+                employerAccept: false,
+                employerDeclined: false,
+                employeeTeamId: null,
+            },
+        ],
+    },
+];
 
 const app = express();
 const port = 5000;
@@ -221,7 +279,7 @@ app.post("/api/suggestedTeam:id", (req, res) => {
     const {id} = req.params
     formData = [];
     suggestedTeam = [];
-    refactorlist = [];
+    console.log(formData[0])
     formData.push({
         description: req.body.description,
         projectBudget: req.body.projectBudget,
@@ -297,6 +355,7 @@ app.post("/api/offer:id", (req, res) => {
         })
     }
     update(res)
+    console.log("accept offer: " + id);
 })
 
 app.post("/api/declined:id", (req, res) => {
@@ -319,6 +378,7 @@ app.post("/api/declined:id", (req, res) => {
         });
     };
     update(res);
+    //console.log("Updated to decline offer: " + id);
 });
 
 app.post("/api/currentTeams:id", (req, res) => {
@@ -326,7 +386,7 @@ app.post("/api/currentTeams:id", (req, res) => {
     const employee = req.body.teamMemberId
     const editMember = async (res) => {
         connection.then((value) => {
-            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employerOfferID = ?, employerOffer = 1 WHERE userID = ?", [id, employee], 
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeOfferID = ?, employeeOffer = 1 WHERE userID = ?", [id, employee], 
                 (err, response) => {
                     if(err){
                         console.log(err.message);
