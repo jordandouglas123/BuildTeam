@@ -30,7 +30,7 @@ function LoginForm() {
                 navigate("/employer")
             }
         } catch (error) {
-            alert("Invalid Credentials Please Re-Enter")
+            alert("Invalid Credentials, please email/ password")
             console.log(error.message)
         }
         setLoading(false)

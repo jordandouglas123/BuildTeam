@@ -64,7 +64,7 @@ const EmployerDashboard = () => {
             teamMemberId: member.userId
         })
         if(res.data.ok){
-            navigate("/employer")
+            window.location.reload()
         }
     }
 
@@ -80,7 +80,7 @@ const EmployerDashboard = () => {
 
     //console.log(employeer) 
     //console.log(suggestedTeam);
-    console.log(currentTeam)
+    //console.log(currentTeam)
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">

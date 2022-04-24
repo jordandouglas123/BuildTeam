@@ -73,61 +73,6 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
     return budget;
 }
 
-let currentTeams = [
-    {
-        teamId: "NRGa61GY2hgsBPJmU8dD3InosbX2",
-        members: [
-            {
-                userId: "3eKwNl38WrS012PBUHpgwFd4gB92",
-                firstName: "Akiel",
-                lastName: "Romain",
-                occupation: "Software Engineer",
-                level: "Advance",
-                description: "Tall but a little shorter than Jael",
-                desiredSalary: "10000",
-                employerAccept: false,
-                employerDeclined: false,
-                employeeTeamId: null,
-            },
-            {
-                userId: "4",
-                firstName: "Hasie",
-                lastName: "Alexander",
-                occupation: "Frontend Developer",
-                level: "Intermidate",
-                description: "King",
-                desiredSalary: "10000",
-                employerAccept: false,
-                employerDeclined: false,
-                employeeTeamId: null,
-            },
-            {
-                userId: "5",
-                firstName: "Jordon",
-                lastName: "Douglas",
-                occupation: "Backend Developer",
-                level: "Intermidate",
-                description: "King",
-                desiredSalary: "10000",
-                employerAccept: false,
-                employerDeclined: false,
-                employeeTeamId: null,
-            },
-            {
-                userId: "1",
-                firstName: "Jael",
-                lastName: "Romain",
-                occupation: "Software Developer",
-                level: "Advance",
-                description: "Tall",
-                desiredSalary: "10000",
-                employerAccept: false,
-                employerDeclined: false,
-                employeeTeamId: null,
-            },
-        ],
-    },
-];
 
 const app = express();
 const port = 5000;
@@ -303,7 +248,6 @@ app.post("/api/offer:id", (req, res) => {
         })
     }
     update(res)
-    console.log("accept offer: " + id);
 })
 
 app.post("/api/declined:id", (req, res) => {
@@ -326,7 +270,6 @@ app.post("/api/declined:id", (req, res) => {
         });
     };
     update(res);
-    //console.log("Updated to decline offer: " + id);
 });
 
 app.post("/api/currentTeams:id", (req, res) => {
@@ -334,7 +277,7 @@ app.post("/api/currentTeams:id", (req, res) => {
     const employee = req.body.teamMemberId
     const editMember = async (res) => {
         connection.then((value) => {
-            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employeeOfferID = ?, employeeOffer = 1 WHERE userID = ?", [id, employee], 
+            value.query("UPDATE heroku_1aabc12bcbbe678.employees SET employerOfferID = ?, employerOffer = 1 WHERE userID = ?", [id, employee], 
                 (err, response) => {
                     if(err){
                         console.log(err.message);
