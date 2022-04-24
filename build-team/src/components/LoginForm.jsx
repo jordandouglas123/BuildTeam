@@ -117,8 +117,9 @@ function LoginForm() {
                         }}
                     >
                         {" "}
-                        Register New Account Here {" "}
-                        <Link to="/signup"> SignUp </Link>
+                        Register New Account Here{" "}
+                        <Link to="/signup"> SignUp </Link> |{" "}
+                        <Link to="/"> Home </Link>
                     </div>
                 </div>
             </div>{" "}

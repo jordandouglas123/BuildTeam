@@ -40,22 +40,8 @@ const Home = () => {
                         className="btn btn-outline-light btn-lg"
                     >
                         {" "}
-                        Employer Login
+                        Login
                     </Link>
-                    <Link
-                        to="/login"
-                        type="button"
-                        className="btn btn-outline-light btn-lg"
-                    >
-                        {" "}
-                        Employee Login
-                    </Link>
-                    <button
-                        type="button"
-                        className="btn btn-outline-light btn-lg"
-                    >
-                        Learn More
-                    </button>
                 </div>
             </div>
             <div className=" container" id="cardsContainer">

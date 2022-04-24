@@ -61,6 +61,7 @@ const EmployeeDashboard = () => {
             }
         );
         if(res.data.ok){
+            alert("Offer Accept Sent")
             window.location.reload();
         }
     }
@@ -75,6 +76,7 @@ const EmployeeDashboard = () => {
             }
         );
         if (res.data.ok) {
+            alert("Offer Decline Sent")
             window.location.reload();
         }
     }
