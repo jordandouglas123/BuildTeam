@@ -11,8 +11,9 @@ let test = async () => {
 const connection = test();
 
 let formData = [
-    
+   
 ];
+
 
 let suggestedTeam = [];
 
@@ -30,8 +31,8 @@ async function findEmployee(occupation, budget, length, team, connection) {
             console.log("Nobody found");
         } else {
             team.push(rows[0]);
+            console.log(rows[0]);
             budget -= rows[0].Salary * length;
-            console.log(rows)
         }
         });
             var que =
@@ -72,6 +73,36 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
     console.log("Recommended team costs: ", recommended - budget);
     return budget;
 }
+ async function refactor(Team, emps, budget, length,connection) {
+   
+    for (let i = 0; i < emps.length; i++) {
+        budget += emps[i].Salary*length;
+    }
+   
+    for (let i = 0; i < emps.length; i++) {
+        for (let j = 0; j < Team.length; j++) {
+            
+            if (emps[i].userId === Team[j].userId) {
+                Team.splice(j, 1);
+                budget = await findEmployee({ Occupation: emps[i].occupation, Level: emps[i].level }, budget, length, Team,connection);
+                
+            }
+            
+        }
+        
+    } 
+ 
+      for (let i = 0; i < emps.length; i++) {
+       var que =
+         "UPDATE heroku_1aabc12bcbbe678.employees SET Status = 0 WHERE userId = ?";
+        connection.then(async function (value){value.query(que, [emps[i].userId], (err, result) => {
+         if (err) throw err;
+            console.log(result.affectedRows);
+        });
+    })
+    } 
+    
+} 
 
 
 const app = express();
