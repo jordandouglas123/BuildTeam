@@ -68,6 +68,13 @@ const EmployerDashboard = () => {
         }
     }
 
+    const postMemeberDecline = async (member) => {
+        const res = await axios.post("http://localhost:5000/api/declineTeam" + currentUser.uid, {
+            teamMember: member
+        })
+        if(res.data.ok){}
+    }
+
 
     useEffect(() => {
         if (token) {
@@ -226,6 +233,7 @@ const EmployerDashboard = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-danger"
+                                                        onClick={() => postMemeberDecline(member)}
                                                     >
                                                         Decline
                                                     </button>
@@ -241,6 +249,7 @@ const EmployerDashboard = () => {
                             <button
                                 type="button"
                                 className="btn btn-outline-secondary"
+                                onClick={() => {fetchSuggestedTeamData(token)}}
                             >
                                 Refactor
                             </button>
