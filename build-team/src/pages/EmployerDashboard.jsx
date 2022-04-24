@@ -79,7 +79,6 @@ const EmployerDashboard = () => {
         })
         if(res.data.ok){
             setLoading(false)
-            console.log(res.data)
         }
 
     }

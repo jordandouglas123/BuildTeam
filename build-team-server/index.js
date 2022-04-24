@@ -89,7 +89,7 @@ async function buildTeam(team, budget, requiredPositions, length, connection) {
         
     } 
  
-      for (let i = 0; i < emps.length; i++) {
+      for (let i = 0; i < emps.length; i++) { 
        var que =
          "UPDATE heroku_1aabc12bcbbe678.employees SET Status = 0 WHERE userId = ?";
         connection.then(async function (value){value.query(que, [emps[i].member.userId], (err, result) => {
