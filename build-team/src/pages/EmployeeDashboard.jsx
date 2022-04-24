@@ -60,7 +60,10 @@ const EmployeeDashboard = () => {
                 employerOfferId: employee[0].employerOfferID,
             }
         );
-        console.log(res.data.ok)
+        if(res.data.ok){
+            alert("Offer Accept Sent")
+            window.location.reload();
+        }
     }
     const declinedOffer = async(token) => {
         const res = await axios.post(
@@ -72,7 +75,10 @@ const EmployeeDashboard = () => {
                 employeeUserId: employee[0].userId,
             }
         );
-        console.log(res.data.ok)
+        if (res.data.ok) {
+            alert("Offer Decline Sent")
+            window.location.reload();
+        }
     }
 
     useEffect(() => {

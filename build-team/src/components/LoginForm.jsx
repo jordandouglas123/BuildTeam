@@ -30,7 +30,7 @@ function LoginForm() {
                 navigate("/employer")
             }
         } catch (error) {
-            alert("Invalid Credentials Please Re-Enter")
+            alert("Invalid Credentials, please email/ password")
             console.log(error.message)
         }
         setLoading(false)
@@ -117,8 +117,9 @@ function LoginForm() {
                         }}
                     >
                         {" "}
-                        Register New Account Here {" "}
-                        <Link to="/signup"> SignUp </Link>
+                        Register New Account Here{" "}
+                        <Link to="/signup"> SignUp </Link> |{" "}
+                        <Link to="/"> Home </Link>
                     </div>
                 </div>
             </div>{" "}

@@ -10,7 +10,6 @@ import { AuthProvider } from "./context/AuthContext";
 
 // Components
 import Header from "./components/Header";
-import EmployerComp from "./components/EmployerComp";
 import SignUpForm from "./components/SignUpForm";
 import EmployeeForm from "./components/EmployeeForm";
 import EmployerForm from "./components/EmployerForm";
@@ -43,7 +42,6 @@ function App() {
                         <Route path="/signup" element={<SignUpForm />} />
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/form" element={<Form />} />
-                        <Route path="/eview" element={<EmployerComp />} />
                         <Route path="/employeeform" element={<EmployeeForm />} />
                         <Route path="/employerform" element={<EmployerForm />} />
                     </Routes>
