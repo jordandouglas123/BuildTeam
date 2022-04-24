@@ -41,21 +41,23 @@ function EmployeeForm() {
             levelValue = "Intern"
         }
         
-        await axios.post("http://localhost:5000/api/employees", {
-            userId: employeeUid,
-            firstName: firstNameRef.current.value,
-            lastName: lastNameRef.current.value,
-            occupation: occupationRef.current.value,
-            level: levelValue,
-            description: decriptionRef.current.value,
-            desiredSalary: desiredSalaryRef.current.value,
-            status : false,
-            employeeTeamId : null
-        }).then(res => {
-            if(res.data.ok){
-                navigate("/employee")
-            }
-        })
+        await axios
+            .post("http://localhost:5000/api/employees", {
+                userId: employeeUid,
+                firstName: firstNameRef.current.value,
+                lastName: lastNameRef.current.value,
+                occupation: occupationRef.current.value,
+                level: levelValue,
+                description: decriptionRef.current.value,
+                desiredSalary: desiredSalaryRef.current.value,
+                status: false,
+                employeeTeamId: null,
+            })
+            .then((res) => {
+                if (res.data.ok) {
+                    navigate("/employee");
+                }
+            });
         setLoading(false)
 
     }
