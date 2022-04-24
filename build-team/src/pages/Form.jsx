@@ -22,7 +22,7 @@ const Form = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const { authToken } = useAuth();
+    const { authToken, currentUser } = useAuth();
     const token = authToken;
     const navigate = useNavigate();
 
@@ -206,7 +206,7 @@ const Form = () => {
         }
 
         await axios
-            .post("http://localhost:5000/api/suggestedTeam", {
+            .post("http://localhost:5000/api/suggestedTeam" + currentUser.uid, {
                 description: descriptionRef.current.value,
                 projectBudget: projectBudgetRef.current.value,
                 projectDuration: projectDurationRef.current.value,
@@ -457,6 +457,17 @@ const Form = () => {
                                     Submit
                                 </button>
                             </form>
+
+                            <div
+                                style={{
+                                    paddingBottom: "15px",
+                                    textAlign: "center",
+                                }}
+                            >
+                                {" "}
+                                Back to Dashboard{" "}
+                                <Link to="/employer"> Back </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

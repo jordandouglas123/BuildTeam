@@ -33,7 +33,6 @@ function App() {
         <AuthProvider>
             <BrowserRouter>
                 <div className="App" id="container">
-                    <Header />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/contactus" element={<Contact />} />

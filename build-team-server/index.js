@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const middleware = require("../middleware");
+const middleware = require("./middleware/index");
 
 let test = async () => {
-    const db = require("./database");
+    const db = require("./server/database");
     const conn = await db();
     return conn; 
 };

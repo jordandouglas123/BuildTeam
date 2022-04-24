@@ -102,20 +102,19 @@ const Home = () => {
                         provided criteria( skills, qualifications, experience,
                         budget, salary demands etc..). This application would
                         compile the information given and generate project
-                        groups based on the users CV’s . This application will
-                        allow a chat box for the users to get to know each other
-                        and ask relevant questions to each member. The business
-                        personnel would open the app, enter their login details,
-                        then they would find a team via findteam button, a form
-                        would be displayed on the screen and they would enter
-                        their requirements for the project(budget, project
-                        description, then when the form is submitted the app
-                        will generate a team/ a list of teams based on the
-                        criteria provided in the form and availability of the
-                        registered IT personnell. Qualified IT personnel can
-                        also register on the application. During the
-                        registration process, they are required to provide some
-                        personal information (name, DOB, etc) and their CV’s.{" "}
+                        groups based on budget, duration and skillset. . The
+                        business personnel would open the app, enter their login
+                        details, then they would find a team via search button,
+                        a form would be displayed on the screen, and they would
+                        enter their requirements for the project (budget, length
+                        of project, project description and the project team
+                        required) and submit the form. On submission, the app
+                        will generate a suggested team based on the criteria
+                        provided in the form and availability of the registered
+                        IT personnel. Qualified IT personnel can also register
+                        on the application. During the registration process,
+                        they are required to provide some personal information
+                        (name, DOB, etc).
                     </p>
                 </div>
             </div>

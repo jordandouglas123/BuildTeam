@@ -11,6 +11,7 @@ const EmployeeDashboard = () => {
     const navigate = useNavigate();
 
     const [employee, setEmployee] = useState({});
+    const [employer, setEmployer] = useState({});
     const [offer, setOffer] = useState({});
 
 
@@ -65,6 +66,7 @@ const EmployeeDashboard = () => {
             window.location.reload();
         }
     }
+
     const declinedOffer = async(token) => {
         const res = await axios.post(
             "http://localhost:5000/api/declined" + employee[0].userId,
@@ -81,6 +83,18 @@ const EmployeeDashboard = () => {
         }
     }
 
+    const fetchEmployerData = async (token) => {
+        const res = await axios.get(
+            "http://localhost:5000/api/empTeam" + employee[0]?.employeeTeamId,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        setEmployer(res.data);
+    };
+
     useEffect(() => {
         if (token) {
             fetchData(token);
@@ -93,7 +107,13 @@ const EmployeeDashboard = () => {
         }
     }, [employee]);
 
-    //console.log(employee)
+    useEffect(() => {
+        if (token) {
+            fetchEmployerData(token);
+        }
+    }, [employee]);
+
+    //console.log(employer)
     //console.log(offer);
     //console.log(authToken)
 
@@ -134,75 +154,6 @@ const EmployeeDashboard = () => {
                                 <p className="card-text">
                                     {employee[0]?.description}
                                 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card rounded-0 p-0">
-                    <div className="card-header">Job Based Statistics</div>
-                    <div className="card-body">
-                        <div className="row h-100 mb-2">
-                            <div className="col">
-                                <div className="d-flex justify-content-evenly mb-2">
-                                    <div className="card statistic-card shadow">
-                                        <h5 className="card-title m-auto">
-                                            Offered
-                                        </h5>
-                                        <p className="card-text text-center m-auto">
-                                            6
-                                        </p>
-                                    </div>
-                                    <div className="card statistic-card shadow">
-                                        <h5 className="card-title m-auto">
-                                            Accepted
-                                        </h5>
-                                        <p className="card-text text-center m-auto">
-                                            3
-                                        </p>
-                                    </div>
-                                    <div className="card statistic-card shadow">
-                                        <h5 className="card-title m-auto">
-                                            Declined
-                                        </h5>
-                                        <p className="card-text text-center m-auto">
-                                            0
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="d-flex justify-content-evenly">
-                                    <div className="card statistic-card text-center shadow">
-                                        <h5 className="card-title m-auto">
-                                            Completed
-                                        </h5>
-                                        <p className="card-text text-center m-auto">
-                                            3
-                                        </p>
-                                    </div>
-                                    <div className="card statistic-card text-center shadow">
-                                        <h5 className="card-title m-auto">
-                                            Aborted
-                                        </h5>
-                                        <p className="card-text text-center m-auto">
-                                            0
-                                        </p>
-                                    </div>
-                                </div>
-                                <h5 className="text-center mt-4">
-                                    Employer Rating
-                                </h5>
-                                <div className="progress">
-                                    <div
-                                        className="progress-bar bg-success"
-                                        role="progressbar"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        Excellent
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -262,14 +213,18 @@ const EmployeeDashboard = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-outline-success me-2"
-                                                    onClick={() => {acceptedOffer()}}
+                                                    onClick={() => {
+                                                        acceptedOffer();
+                                                    }}
                                                 >
                                                     Accept
                                                 </button>
                                                 <button
                                                     type="button"
                                                     className="btn btn-outline-danger"
-                                                    onClick={() => {declinedOffer()}}
+                                                    onClick={() => {
+                                                        declinedOffer();
+                                                    }}
                                                 >
                                                     Reject
                                                 </button>
@@ -281,6 +236,36 @@ const EmployeeDashboard = () => {
                         </div>
                         {/* Card Footer */}
                         <div className="card-footer">View All Offers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="row flex-grow-1 p-2">
+                <div className="card rounded-0 p-0">
+                    <div className="card-header navbar">
+                        Current Employer Info
+                    </div>
+                    <div className="card-body">
+                        <div className="row h-100 mb-2">
+                            <div className="col d-flex flex-column justify-content-center align-items-center">
+                                <h3 className="card-title">
+                                    {employer[0]?.name}
+                                </h3>
+                                <h5 className="d-flex">
+                                    Type:{" "}
+                                    <p className="ms-2">{employer[0]?.type}</p>
+                                </h5>
+                                <p className="card-text text-center">
+                                    {employer[0]?.description}
+                                </p>
+                                <h6 className="d-flex">
+                                    Project Duration:{" "}
+                                    <p className="ms-2">
+                                        {employer[0]?.duration} Months
+                                    </p>
+                                </h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

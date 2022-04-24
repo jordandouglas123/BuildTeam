@@ -73,6 +73,8 @@ const EmployerDashboard = () => {
     const postMemeberDecline = async (member) => {
         setLoading(true)
         const res = await axios.post("http://localhost:5000/api/declineTeam" + currentUser.uid, {
+            budget: employeer[0].budget,
+            duration: employeer[0].duration,
             teamMember: member
         })
         if(res.data.ok){
@@ -128,11 +130,15 @@ const EmployerDashboard = () => {
                                 </p>
                                 <h6 className="d-flex">
                                     Propose Team Budget:{" "}
-                                    <p className="ms-2">$1.25M</p>
+                                    <p className="ms-2">
+                                        {employeer[0]?.budget}
+                                    </p>
                                 </h6>
                                 <h6 className="d-flex">
                                     Propose Duration:{" "}
-                                    <p className="ms-2">12 Months</p>
+                                    <p className="ms-2">
+                                        {employeer[0]?.duration} Months
+                                    </p>
                                 </h6>
                             </div>
                         </div>
@@ -249,7 +255,7 @@ const EmployerDashboard = () => {
                                                         onClick={() =>
                                                             postMemeber(member)
                                                         }
-                                                        disabled={ loading }
+                                                        disabled={loading}
                                                     >
                                                         Invite
                                                     </button>
@@ -261,7 +267,7 @@ const EmployerDashboard = () => {
                                                                 member
                                                             )
                                                         }
-                                                        disabled={ loading }
+                                                        disabled={loading}
                                                     >
                                                         Decline
                                                     </button>
@@ -280,7 +286,7 @@ const EmployerDashboard = () => {
                                 onClick={() => {
                                     fetchSuggestedTeamData(token);
                                 }}
-                                disabled={ loading }
+                                disabled={loading}
                             >
                                 Refactor
                             </button>
@@ -288,7 +294,7 @@ const EmployerDashboard = () => {
                                 to="/form"
                                 type="button"
                                 className="btn btn-outline-secondary"
-                                disabled={ loading }
+                                disabled={loading}
                             >
                                 Search
                             </Link>
