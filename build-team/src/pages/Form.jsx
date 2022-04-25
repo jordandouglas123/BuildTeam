@@ -40,7 +40,7 @@ const Form = () => {
         let levelValueFour;
         let levelValueFive;
 
-        setLoading(true)
+        setLoading(true);
         if (memberOneRef.current.value === "1") {
             memberOne = "Project Manager";
         }
@@ -230,7 +230,7 @@ const Form = () => {
                     navigate("/employer");
                 }
             });
-            setLoading(false)
+        setLoading(false);
     };
 
     return (

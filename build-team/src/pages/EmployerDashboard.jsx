@@ -12,7 +12,7 @@ const EmployerDashboard = () => {
     const [suggestedTeam, setSuggestedTeam] = useState([]);
     const [currentTeam, setCurrentTeam] = useState();
     const [loading, setLoading] = useState(false);
-    const [test, setTesting] = useState()
+    const [test, setTesting] = useState();
 
     const handleSignout = async () => {
         try {
@@ -36,7 +36,6 @@ const EmployerDashboard = () => {
     };
 
     const fetchSuggestedTeamData = async (token) => {
-
         const teamRes = await axios.get(
             "http://localhost:5000/api/suggestedTeams",
             {
@@ -46,10 +45,9 @@ const EmployerDashboard = () => {
             }
         );
         setSuggestedTeam(teamRes.data);
-    }
+    };
 
     const fetchCurrentTeamData = async (token) => {
-
         const teamRes = await axios.get(
             "http://localhost:5000/api/team" + currentUser.uid,
             {
@@ -59,7 +57,7 @@ const EmployerDashboard = () => {
             }
         );
         setCurrentTeam(teamRes.data);
-    }
+    };
 
     const postMemeber = async (member) => {
         const res = await axios.post(
@@ -68,13 +66,14 @@ const EmployerDashboard = () => {
                 teamMemberId: member.userId,
             }
         );
-        if(res.data.ok){
-            navigate("/employer")
+        if (res.data.ok) {
+            alert("Invite Sent");
+            window.location.reload();
         }
-    }
+    };
 
     const postMemeberDecline = async (member) => {
-        setLoading(true)
+        setLoading(true);
         const res = await axios.post(
             "http://localhost:5000/api/declineTeam" + currentUser.uid,
             {
@@ -83,13 +82,11 @@ const EmployerDashboard = () => {
                 teamMember: member,
             }
         );
-        if(res.data.ok){
-            setLoading(false)
-            console.log(res.data)
+        if (res.data.ok) {
+            setLoading(false);
+            console.log(res.data);
         }
-
-    }
-
+    };
 
     useEffect(() => {
         if (token) {
@@ -99,10 +96,9 @@ const EmployerDashboard = () => {
         }
     }, [token]);
 
-
-    //console.log(employeer) 
+    //console.log(employeer)
     //console.log(suggestedTeam);
-    console.log(currentTeam)
+    //console.log(currentTeam)
 
     return (
         <div className="container-fluid d-flex flex-column mt-4">
@@ -159,10 +155,17 @@ const EmployerDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Current Team</div>
-                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => {
+                                    window.location.reload();
+                                }}
+                            >
+                                Reload
+                            </button>
                         </div>
                         {/* Card Body */}
-                        
+
                         <div className="card-body p-0">
                             {/* List Group For Offer */}
                             <div className="list-group list-group-flush">
@@ -192,7 +195,15 @@ const EmployerDashboard = () => {
                         {/* Card Header */}
                         <div className="card-header d-flex justify-content-between">
                             <div>Suggested Team</div>
-                            <div className="btn btn-outline-dark" onClick={() => {window.location.reload()}}>Reload</div>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => {
+                                    window.location.reload();
+                                }}
+                                disabled={loading}
+                            >
+                                Reload
+                            </button>
                         </div>
                         {/* Card Body */}
                         <div className="card-body p-0">

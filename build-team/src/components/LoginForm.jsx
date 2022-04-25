@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-
 function LoginForm() {
     const { login, currentUser } = useAuth();
 
@@ -14,27 +13,25 @@ function LoginForm() {
 
     const [loading, setLoading] = useState(false);
 
-
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            if(employeeRef.current.checked){
+            if (employeeRef.current.checked) {
                 await login(emailRef.current.value, passwordRef.current.value);
-                navigate("/employee")
-            }
-            else if(employerRef.current.checked){
+                navigate("/employee");
+            } else if (employerRef.current.checked) {
                 await login(emailRef.current.value, passwordRef.current.value);
-                navigate("/employer")
+                navigate("/employer");
             }
         } catch (error) {
-            alert("Invalid Credentials Please Re-Enter")
-            console.log(error.message)
+            alert("Invalid Credentials, please email/ password");
+            console.log(error.message);
         }
-        setLoading(false)
-    }
+        setLoading(false);
+    };
 
     return (
         <div>
@@ -117,8 +114,9 @@ function LoginForm() {
                         }}
                     >
                         {" "}
-                        Register New Account Here {" "}
-                        <Link to="/signup"> SignUp </Link>
+                        Register New Account Here{" "}
+                        <Link to="/signup"> SignUp </Link> |{" "}
+                        <Link to="/"> Home </Link>
                     </div>
                 </div>
             </div>{" "}

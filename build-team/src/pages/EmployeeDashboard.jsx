@@ -14,8 +14,7 @@ const EmployeeDashboard = () => {
     const [employer, setEmployer] = useState({});
     const [offer, setOffer] = useState({});
 
-
-    const acceptedRef = useRef()
+    const acceptedRef = useRef();
 
     const handleSignout = async () => {
         try {
@@ -50,7 +49,7 @@ const EmployeeDashboard = () => {
         setOffer(res.data);
     };
 
-    const acceptedOffer = async(token) => {
+    const acceptedOffer = async (token) => {
         const res = await axios.post(
             "http://localhost:5000/api/offer" + employee[0].userId,
             {
@@ -61,10 +60,13 @@ const EmployeeDashboard = () => {
                 employerOfferId: employee[0].employerOfferID,
             }
         );
-        console.log(res.data.ok)
-    }
+        if (res.data.ok) {
+            alert("Offer Accept Sent");
+            window.location.reload();
+        }
+    };
 
-    const declinedOffer = async(token) => {
+    const declinedOffer = async (token) => {
         const res = await axios.post(
             "http://localhost:5000/api/declined" + employee[0].userId,
             {
@@ -74,8 +76,11 @@ const EmployeeDashboard = () => {
                 employeeUserId: employee[0].userId,
             }
         );
-        console.log(res.data.ok)
-    }
+        if (res.data.ok) {
+            alert("Offer Decline Sent");
+            window.location.reload();
+        }
+    };
 
     const fetchEmployerData = async (token) => {
         const res = await axios.get(
