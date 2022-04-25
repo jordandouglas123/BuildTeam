@@ -396,6 +396,6 @@ app.get("/api/empteam:id", (req, res) => {
 });
 
 
-app.listen(process.env.PORT || port, () => {
+app.listen(port, () => {
     console.log(`Running on port ${5000}`);
 });
