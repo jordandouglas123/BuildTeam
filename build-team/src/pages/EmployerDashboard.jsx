@@ -11,6 +11,7 @@ const EmployerDashboard = () => {
     const [employeer, setEmployer] = useState({});
     const [suggestedTeam, setSuggestedTeam] = useState([]);
     const [currentTeam, setCurrentTeam] = useState();
+    const [loading, setLoading] = useState(false);
 
     const handleSignout = async () => {
         try {
@@ -71,7 +72,6 @@ const EmployerDashboard = () => {
         }
     }
 
-<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
     const postMemeberDecline = async (member) => {
         setLoading(true)
         const res = await axios.post(
@@ -89,8 +89,6 @@ const EmployerDashboard = () => {
 
     }
 
-=======
->>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
 
     useEffect(() => {
         if (token) {
@@ -247,25 +245,19 @@ const EmployerDashboard = () => {
                                                         onClick={() =>
                                                             postMemeber(member)
                                                         }
-<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                                         disabled={loading}
-=======
->>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                                                     >
                                                         Invite
                                                     </button>
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-danger"
-<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                                         onClick={() =>
                                                             postMemeberDecline(
                                                                 member
                                                             )
                                                         }
                                                         disabled={loading}
-=======
->>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                                                     >
                                                         Decline
                                                     </button>
@@ -281,13 +273,10 @@ const EmployerDashboard = () => {
                             <button
                                 type="button"
                                 className="btn btn-outline-secondary"
-<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                 onClick={() => {
                                     fetchSuggestedTeamData(token);
                                 }}
                                 disabled={loading}
-=======
->>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                             >
                                 Refactor
                             </button>
@@ -295,10 +284,7 @@ const EmployerDashboard = () => {
                                 to="/form"
                                 type="button"
                                 className="btn btn-outline-secondary"
-<<<<<<< HEAD:build-team-server/build-team/src/pages/EmployerDashboard.jsx
                                 disabled={loading}
-=======
->>>>>>> parent of 9a87ab2a (Merge branch 'Firebase'):build-team/src/pages/EmployerDashboard.jsx
                             >
                                 Search
                             </Link>
