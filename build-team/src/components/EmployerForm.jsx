@@ -20,7 +20,7 @@ function EmployerForm() {
         e.preventDefault();
         setLoading(true);
         await axios
-            .post("https://buildteam22.herokuapp.com/api/employers", {
+            .post("http://localhost:5000/api/employers", {
                 userId: employerUid,
                 name: nameRef.current.value,
                 type: typeRef.current.value,

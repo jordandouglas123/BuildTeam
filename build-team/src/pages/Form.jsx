@@ -206,29 +206,25 @@ const Form = () => {
         }
 
         await axios
-            .post(
-                "https://buildteam22.herokuapp.com/api/suggestedTeam" +
-                    currentUser.uid,
-                {
-                    description: descriptionRef.current.value,
-                    projectBudget: projectBudgetRef.current.value,
-                    projectDuration: projectDurationRef.current.value,
-                    teamMemberOne: memberOne,
-                    teamMemberOneLevel: levelValueOne,
+            .post("http://localhost:5000/api/suggestedTeam" + currentUser.uid, {
+                description: descriptionRef.current.value,
+                projectBudget: projectBudgetRef.current.value,
+                projectDuration: projectDurationRef.current.value,
+                teamMemberOne: memberOne,
+                teamMemberOneLevel: levelValueOne,
 
-                    teamMemberTwo: memberTwo,
-                    teamMemberTwoLevel: levelValueTwo,
+                teamMemberTwo: memberTwo,
+                teamMemberTwoLevel: levelValueTwo,
 
-                    teamMemberThree: memberThree,
-                    teamMemberThreeLevel: levelValueThree,
+                teamMemberThree: memberThree,
+                teamMemberThreeLevel: levelValueThree,
 
-                    teamMemberFour: memberFour,
-                    teamMemberFourLevel: levelValueFour,
+                teamMemberFour: memberFour,
+                teamMemberFourLevel: levelValueFour,
 
-                    teamMemberFive: memberFive,
-                    teamMemberFiveLevel: levelValueFive,
-                }
-            )
+                teamMemberFive: memberFive,
+                teamMemberFiveLevel: levelValueFive,
+            })
             .then((res) => {
                 if (res.data.ok) {
                     navigate("/employer");

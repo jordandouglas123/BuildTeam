@@ -24,7 +24,7 @@ const EmployerDashboard = () => {
 
     const fetchData = async (token) => {
         const res = await axios.get(
-            "https://buildteam22.herokuapp.com/api/employer" + currentUser.uid,
+            "http://localhost:5000/api/employer" + currentUser.uid,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -37,7 +37,7 @@ const EmployerDashboard = () => {
     const fetchSuggestedTeamData = async (token) => {
 
         const teamRes = await axios.get(
-            "https://buildteam22.herokuapp.com/api/suggestedTeams",
+            "http://localhost:5000/api/suggestedTeams",
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -50,7 +50,7 @@ const EmployerDashboard = () => {
     const fetchCurrentTeamData = async (token) => {
 
         const teamRes = await axios.get(
-            "https://buildteam22.herokuapp.com/api/team" + currentUser.uid,
+            "http://localhost:5000/api/team" + currentUser.uid,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -62,8 +62,7 @@ const EmployerDashboard = () => {
 
     const postMemeber = async (member) => {
         const res = await axios.post(
-            "https://buildteam22.herokuapp.com/api/currentTeams" +
-                currentUser.uid,
+            "http://localhost:5000/api/currentTeams" + currentUser.uid,
             {
                 teamMemberId: member.userId,
             }
@@ -77,8 +76,7 @@ const EmployerDashboard = () => {
     const postMemeberDecline = async (member) => {
         setLoading(true)
         const res = await axios.post(
-            "https://buildteam22.herokuapp.com/api/declineTeam" +
-                currentUser.uid,
+            "http://localhost:5000/api/declineTeam" + currentUser.uid,
             {
                 budget: employeer[0].budget,
                 duration: employeer[0].duration,
