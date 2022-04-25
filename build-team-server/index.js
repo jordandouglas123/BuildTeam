@@ -111,14 +111,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(
-    express.static(path.join(__dirname, "/build-team/build"))
-);
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/build-team/build", "index.html"));
-});
-
 app.post("/api/employees", (req, res) => {
     const userId = req.body.userId;
     const firstName = req.body.firstName;
