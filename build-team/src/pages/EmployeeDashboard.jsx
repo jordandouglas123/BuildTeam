@@ -28,7 +28,7 @@ const EmployeeDashboard = () => {
 
     const fetchData = async (token) => {
         const res = await axios.get(
-            "https://buildteam22.herokuapp.com/api/employee" + currentUser.uid,
+            "http://localhost:5000/api/employee" + currentUser.uid,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -40,8 +40,7 @@ const EmployeeDashboard = () => {
 
     const fetchOffer = async (token) => {
         const res = await axios.get(
-            "https://buildteam22.herokuapp.com/api/employer" +
-                employee[0]?.employerOfferID,
+            "http://localhost:5000/api/employer" + employee[0]?.employerOfferID,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -53,7 +52,7 @@ const EmployeeDashboard = () => {
 
     const acceptedOffer = async(token) => {
         const res = await axios.post(
-            "https://buildteam22.herokuapp.com/api/offer" + employee[0].userId,
+            "http://localhost:5000/api/offer" + employee[0].userId,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -67,8 +66,7 @@ const EmployeeDashboard = () => {
 
     const declinedOffer = async(token) => {
         const res = await axios.post(
-            "https://buildteam22.herokuapp.com/api/declined" +
-                employee[0].userId,
+            "http://localhost:5000/api/declined" + employee[0].userId,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -81,8 +79,7 @@ const EmployeeDashboard = () => {
 
     const fetchEmployerData = async (token) => {
         const res = await axios.get(
-            "https://buildteam22.herokuapp.com/api/empTeam" +
-                employee[0]?.employeeTeamId,
+            "http://localhost:5000/api/empTeam" + employee[0]?.employeeTeamId,
             {
                 headers: {
                     Authorization: "Bearer " + token,
